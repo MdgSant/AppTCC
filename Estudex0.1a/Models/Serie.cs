@@ -10,7 +10,7 @@ namespace Estudex0._1a.Models
     public class Serie
     {   
         public int idSerie {  get; set; }
-        public Date Inicio { get; set; } //vê depois
+        public DateTime Inicio { get; set; } //vê depois
         public string NomeSerie { get; set; }
     }
 }

@@ -10,5 +10,6 @@ namespace Estudex0._1a.Models.Utilizadores
         public string NomeAluno { get; set; }
         public int idSerie { get; set; }
         public int Xp {  get; set; }
+        public Serie Serie { get; set; }
     }
 }
