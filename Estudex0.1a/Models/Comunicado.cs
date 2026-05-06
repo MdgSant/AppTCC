@@ -7,9 +7,13 @@ namespace Estudex0._1a.Models
 {
      public class Comunicado
     {
-        public int idPergunta {  get; set; }
-        public string Enunciado { get; set; } = string.Empty;
-        public int idAtividade { get; set; }
-        public Atividade Atividade { get; set; }
+        public int IdComunicado { get; set; }
+        public string Titulo { get; set; } = string.Empty;
+        public string Descricao { get; set; } = string.Empty;
+        public DateOnly DataEnvio { get; set; }
+        public string UtilizadorResponsavel { get; set; } = string.Empty;
+        public DateTime DataPublicacao { get; set; }
+        public int? IdSerie { get; set; }    
+        public Serie? Serie { get; set; }
     }
 }

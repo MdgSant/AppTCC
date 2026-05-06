@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Estudex0._1a.Models
 {
-    public class Disciplina
+    public class NivelDificuldade
     {
-        public int idDisciplina { get; set; }
+        public int IdDificuldade { get; set; }
         public string Nome { get; set; } = string.Empty;
     }
 }

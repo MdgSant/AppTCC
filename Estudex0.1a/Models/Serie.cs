@@ -1,4 +1,5 @@
-﻿using Java.Sql;
+﻿using Estudex0._1a.Models.Utilizadores;
+using Java.Sql;
 using Java.Util;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,9 @@ namespace Estudex0._1a.Models
     public class Serie
     {   
         public int idSerie {  get; set; }
-        public DateTime Inicio { get; set; } //vê depois
-        public string NomeSerie { get; set; }
+        public DateOnly Inicio { get; set; } //vê depois
+        public string NomeSerie { get; set; } = string.Empty;
+        public List<Aluno> Alunos { get; set; } = new ();
+        public List<Comunicado> Comunicados { get; set; } = new ();
     }
 }
