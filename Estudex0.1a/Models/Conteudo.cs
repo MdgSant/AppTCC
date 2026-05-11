@@ -9,7 +9,7 @@ namespace Estudex0._1a.Models
         public int IdConteúdo {  get; set; }
         public string Titulo { get; set; } = string.Empty;
         public string Texto { get; set; } = string.Empty;
-        public int idDisciplina { get; set; }
-        public Disciplina Disciplina { get; set; }
+        public int? IdDisciplina { get; set; }
+        public Disciplina? Disciplina { get; set; }
     }
 }

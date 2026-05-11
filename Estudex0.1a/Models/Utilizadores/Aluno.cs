@@ -6,8 +6,8 @@ namespace Estudex0._1a.Models.Utilizadores
 {
     public class Aluno : Utilizador
     {
-        public int idSerie { get; set; }
-        public int Xp {  get; set; }
+        public int IdSerie { get; set; }
+        public int? Xp {  get; set; }
         public Serie? Serie { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace Estudex0._1a.Models
         public string Titulo { get; set; }
         public DateTime DataCriacao { get; set; }
         public int PontucaoMaxima { get; set; }
-        public int idOrientador { get; set; }
+        public int IdOrientador { get; set; }
 
     }
 }

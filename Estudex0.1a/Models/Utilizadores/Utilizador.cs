@@ -7,7 +7,7 @@ namespace Estudex0._1a.Models
 {
     public class Utilizador
     {
-        public int idUtilizador {  get; set; }
+        public int IdUtilizador {  get; set; }
         public string Nome { get; set; } = string.Empty;
         public string CPF { get; set; } = string.Empty;
         public string Cidade { get; set; } = string.Empty;

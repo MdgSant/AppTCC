@@ -6,7 +6,7 @@ namespace Estudex0._1a.Models
 {
     public class Disciplina
     {
-        public int idDisciplina { get; set; }
+        public int IdDisciplina { get; set; }
         public string Nome { get; set; } = string.Empty;
     }
 }
