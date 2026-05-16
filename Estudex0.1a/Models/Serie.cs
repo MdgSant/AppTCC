@@ -1,6 +1,4 @@
 ﻿using Estudex0._1a.Models.Utilizadores;
-using Java.Sql;
-using Java.Util;
 using System;
 using System.Collections.Generic;
 using System.Text;
