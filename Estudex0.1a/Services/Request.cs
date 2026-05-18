@@ -31,7 +31,7 @@ public class Request
         HttpResponseMessage response = await httpClient.PostAsync(uri, content);
         string serialized = await response.Content.ReadAsStringAsync();
         TResult result = data;
-        if (response.StatusCode == System.Net.HttpStatusCode.OK)
+        if  (response.IsSuccessStatusCode)
             result = await Task.Run(() => JsonConvert.DeserializeObject<TResult>(serialized));
         else
             throw new Exception(serialized);

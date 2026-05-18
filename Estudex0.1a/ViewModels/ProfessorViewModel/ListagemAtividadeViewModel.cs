@@ -7,10 +7,11 @@ using System.Text;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using CommunityToolkit.Mvvm.ComponentModel;
+using AppRpgEtec.ViewModels;
 
 namespace Estudex0._1a.ViewModels.ProfessorViewModel
 {
-    public class ListagemAtividadeViewModel : ObservableObject
+    public class ListagemAtividadeViewModel : BaseViewModel
     {
         // 1
         private ProfessorService aService;

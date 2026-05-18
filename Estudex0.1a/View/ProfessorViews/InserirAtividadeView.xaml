@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Estudex0._1a.View.ProfessorViews.InserirAtividadeView"
+             Title="InserirAtividadeView">
+    <ScrollView>
+        <VerticalStackLayout Spacing="3" Padding="15">
+
+            <Label Text="Título" FontSize="Medium" />
+            <Entry Text="{Binding Titulo}" FontSize="Medium" />
+
+            <Label Text="Pontuação Máxima" FontSize="Medium" />
+            <Entry Text="{Binding PontuacaoMaxima}" FontSize="Medium" Keyboard="Numeric" />
+
+            <Label Text="Orientador" FontSize="Medium" />
+            <Picker Title="---Selecione---"
+                ItemsSource="{Binding ListaOrientadores}"
+                ItemDisplayBinding="{Binding Nome}"
+                SelectedItem="{Binding OrientadorSelecionado}" />
+
+            <Label Text="Nível de Dificuldade" FontSize="Medium" />
+            <Picker Title="---Selecione---"
+                ItemsSource="{Binding ListaNiveisDificuldade}"
+                ItemDisplayBinding="{Binding Nome}"
+                SelectedItem="{Binding NivelDificuldadeSelecionado}" />
+
+            <HorizontalStackLayout Spacing="20" Margin="0,15,0,0">
+                <Button Text="Salvar" Command="{Binding SalvarAtividadeCommand}" />
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
