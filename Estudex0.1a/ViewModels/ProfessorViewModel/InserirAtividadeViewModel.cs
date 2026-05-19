@@ -92,7 +92,7 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
                     Titulo = this.titulo,
                     PontuacaoMaxima = this.pontuacaoMaxima,
                     IdOrientador = OrientadorSelecionado.IdUtilizador,
-                    IdNivelDificuldade = NivelDificuldadeSelecionado.IdNivelDificuldade
+                    NivelDificuldade = NivelDificuldadeSelecionado
                 };
 
                 await aService.PostAtividadeAsync(model);

@@ -20,7 +20,7 @@ namespace Estudex0._1a.Models
         [JsonProperty("idOrientador")]
         public int IdOrientador { get; set; }
 
-        [JsonProperty("idNivelDificuldade")]
-        public int IdNivelDificuldade { get; set; }
+        [JsonProperty("nivelDificuldade")]
+        public NivelDificuldade NivelDificuldade { get; set; }
     }
 }

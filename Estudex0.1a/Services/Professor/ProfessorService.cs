@@ -12,7 +12,7 @@ namespace Estudex0._1a.Services.Professor
         private readonly Request _request;
 
         private const string apiUrlBase = "http://localhost:8080/atividades";
-        private const string apiUrlBaseNivel = "http://localhost:8080/nivelDificuldade";
+        private const string apiUrlBaseNivel = "http://localhost:8080/niveldificuldade";
         private const string apiUrlBaseUtilizador = "http://localhost:8080/utilizadores";
 
         public async Task<ObservableCollection<NivelDificuldade>> GetNiveisDificuldadeAsync()
