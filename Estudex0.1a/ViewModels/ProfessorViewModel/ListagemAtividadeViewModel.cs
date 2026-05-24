@@ -25,15 +25,15 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
             string token = Preferences.Get("UsuarioToken", string.Empty);
             aService = new ProfessorService(token);
             Atividades = new ObservableCollection<Atividade>();
-
-            _ = ObterAtividades();
         }
 
         public async Task ObterAtividades()
         {
             try
             {
-                Atividades = await aService.GetAtividadesAsync();
+                Atividades.Clear(); // ✅ limpa sem substituir a referência
+                var lista = await aService.GetAtividadesAsync();
+                foreach (var a in lista) Atividades.Add(a);
                 OnPropertyChanged(nameof(Atividades));
             }
             catch (Exception ex)

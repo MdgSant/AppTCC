@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Estudex0._1a.View.AlunoViews.InserirDuvidaView"
+             Title="Nova Dúvida"
+             BackgroundColor="#1a1a2e">
+    <ScrollView>
+        <VerticalStackLayout Spacing="0" Padding="20">
+
+            <!-- Header -->
+            <Frame BackgroundColor="#2d2b55" CornerRadius="16" Padding="20"
+                   Margin="0,0,0,20" BorderColor="#7c3aed">
+                <HorizontalStackLayout Spacing="12">
+                    <Label Text="?" FontSize="22" TextColor="#c084fc" VerticalOptions="Center" />
+                    <VerticalStackLayout Spacing="4" VerticalOptions="Center">
+                        <Label Text="Nova Dúvida" FontSize="22"
+                               FontAttributes="Bold" TextColor="#c084fc" />
+                        <Label Text="Descreva sua dúvida com detalhes"
+                               FontSize="13" TextColor="#a0a0c0" />
+                    </VerticalStackLayout>
+                </HorizontalStackLayout>
+            </Frame>
+
+            <!-- Card Formulário -->
+            <Frame BackgroundColor="#2d2b55" CornerRadius="16" Padding="20"
+                   Margin="0,0,0,16" BorderColor="#3d3b6e">
+                <VerticalStackLayout Spacing="16">
+
+                    <!-- Título -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="🏷 Título:" FontSize="13" TextColor="#a0a0c0" />
+                        <Frame BackgroundColor="#1a1a2e" CornerRadius="10"
+                               Padding="0" BorderColor="#7c3aed" HeightRequest="48">
+                            <Entry Text="{Binding Titulo}"
+                                   FontSize="15"
+                                   TextColor="White"
+                                   PlaceholderColor="#6060a0"
+                                   Placeholder="Ex: Dúvida sobre Bhaskara"
+                                   BackgroundColor="Transparent"
+                                   Margin="12,0" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <!-- Disciplina -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="📘 Disciplina:" FontSize="13" TextColor="#a0a0c0" />
+                        <Frame BackgroundColor="#1a1a2e" CornerRadius="10"
+                               Padding="0" BorderColor="#7c3aed" HeightRequest="48">
+                            <Picker Title=""
+                                    TitleColor="#6060a0"
+                                    TextColor="White"
+                                    BackgroundColor="Transparent"
+                                    ItemsSource="{Binding ListaDisciplinas}"
+                                    ItemDisplayBinding="{Binding Nome}"
+                                    SelectedItem="{Binding DisciplinaSelecionada}"
+                                    Margin="8,0" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                    <!-- Descrição -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="☰ Descrição:" FontSize="13" TextColor="#a0a0c0" />
+                        <Frame BackgroundColor="#1a1a2e" CornerRadius="10"
+                               Padding="8" BorderColor="#7c3aed">
+                            <Editor Text="{Binding Descricao}"
+                                    FontSize="14"
+                                    TextColor="White"
+                                    PlaceholderColor="#6060a0"
+                                    Placeholder="Descreva sua dúvida em detalhes..."
+                                    BackgroundColor="Transparent"
+                                    HeightRequest="120" />
+                        </Frame>
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Botão -->
+            <Button Text="✈ Enviar Dúvida"
+                    BackgroundColor="#7c3aed"
+                    TextColor="White"
+                    CornerRadius="14"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    HeightRequest="54"
+                    Command="{Binding SalvarDuvidaCommand}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

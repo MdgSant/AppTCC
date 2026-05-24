@@ -14,6 +14,7 @@ namespace Estudex0._1a.Services.Professor
         private const string apiUrlBase = "http://localhost:8080/atividades";
         private const string apiUrlBaseNivel = "http://localhost:8080/niveldificuldade";
         private const string apiUrlBaseUtilizador = "http://localhost:8080/utilizadores";
+        private const string apiUrlBaseDisciplina = "http://localhost:8080/disciplinas";
 
         public async Task<ObservableCollection<NivelDificuldade>> GetNiveisDificuldadeAsync()
         {
@@ -23,7 +24,10 @@ namespace Estudex0._1a.Services.Professor
         {
             return await _request.GetAsync<ObservableCollection<Utilizador>>(apiUrlBaseUtilizador, _token);
         }
-
+        public async Task<ObservableCollection<Disciplina>> GetDisciplinasAsync()
+        {
+            return await _request.GetAsync<ObservableCollection<Disciplina>>(apiUrlBaseDisciplina, _token);
+        }
 
         private string _token;
         public ProfessorService(string token)

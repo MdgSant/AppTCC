@@ -4,11 +4,43 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Estudex0._1a.View.ProfessorViews"
-    Title="Estudex0._1a">
+    Title="EstudeX"
+    FlyoutBehavior="Flyout"
+    FlyoutBackgroundColor="#1a1a2e">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:AtividadeView}"
-        Route="AtividadeView" />
+    <Shell.FlyoutHeader>
+        <VerticalStackLayout Padding="20,40,20,20" Spacing="4" BackgroundColor="#2d2b55">
+            <Label Text="EstudeX"
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   TextColor="#c084fc" />
+            <Label Text="Prof"
+                   FontSize="12"
+                   TextColor="#a0a0c0" />
+        </VerticalStackLayout>
+    </Shell.FlyoutHeader>
+
+    <Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid HeightRequest="50" Padding="20,0">
+                <Label Text="{Binding Title}"
+                       FontSize="15"
+                       TextColor="#e0e0ff"
+                       VerticalOptions="Center" />
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>
+
+    <FlyoutItem Title="Atividades">
+        <ShellContent
+            ContentTemplate="{DataTemplate local:AtividadeView}"
+            Route="AtividadeView" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Dúvidas">
+        <ShellContent
+            ContentTemplate="{DataTemplate local:DuvidaView}"
+            Route="DuvidaView" />
+    </FlyoutItem>
 
 </Shell>

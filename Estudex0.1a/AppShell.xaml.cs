@@ -1,13 +1,20 @@
-﻿using Estudex0._1a.View.ProfessorViews;
-
-namespace Estudex0._1a;
-
+﻿namespace Estudex0._1a;
 public partial class AppShell : Shell
 {
     public AppShell()
     {
         InitializeComponent();
 
-        Routing.RegisterRoute(nameof(InserirAtividadeView), typeof(InserirAtividadeView));
+        // Rotas de navegação para páginas de inserção
+        #region Rotas Atividade
+        Routing.RegisterRoute("ListarAtividadeView",
+            typeof(Estudex0._1a.View.ProfessorViews.AtividadeView));
+        Routing.RegisterRoute("InserirAtividadeView",
+            typeof(Estudex0._1a.View.ProfessorViews.InserirAtividadeView));
+        #endregion
+        Routing.RegisterRoute("ListarDuvidaView",
+            typeof(Estudex0._1a.View.ProfessorViews.DuvidaView));
+        Routing.RegisterRoute("InserirDuvidaView",
+            typeof(Estudex0._1a.View.AlunoViews.InserirDuvidaView));
     }
 }
