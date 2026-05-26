@@ -94,13 +94,9 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
                     IdOrientador = OrientadorSelecionado.IdUtilizador,
                     NivelDificuldade = NivelDificuldadeSelecionado
                 };
+                var atividade = await aService.PostAtividadeAsync(model);
 
-                await aService.PostAtividadeAsync(model);
-
-                await Application.Current.MainPage
-                    .DisplayAlert("Mensagem", "Atividade salva com sucesso!", "Ok");
-
-                await Shell.Current.GoToAsync("..");
+                await Shell.Current.GoToAsync($"InserirPerguntasView?idAtividade={atividade.IdAtividade}");
             }
             catch (Exception ex)
             {

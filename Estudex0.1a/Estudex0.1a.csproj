@@ -55,15 +55,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <AndroidResource Remove="ViewModels\AlunoViewModel\**" />
-	  <Compile Remove="ViewModels\AlunoViewModel\**" />
-	  <EmbeddedResource Remove="ViewModels\AlunoViewModel\**" />
-	  <MauiCss Remove="ViewModels\AlunoViewModel\**" />
-	  <MauiXaml Remove="ViewModels\AlunoViewModel\**" />
-	  <None Remove="ViewModels\AlunoViewModel\**" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
@@ -82,6 +73,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\ProfessorViews\InserirAtividadeView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\ProfessorViews\InserirPerguntasView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\ProfessorViews\ListagemDuvidasView.xaml">

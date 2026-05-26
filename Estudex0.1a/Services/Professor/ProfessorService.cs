@@ -10,12 +10,13 @@ namespace Estudex0._1a.Services.Professor
     public class ProfessorService : Request
     {
         private readonly Request _request;
-
+        #region Conexão API - caminhos
         private const string apiUrlBase = "http://localhost:8080/atividades";
         private const string apiUrlBaseNivel = "http://localhost:8080/niveldificuldade";
         private const string apiUrlBaseUtilizador = "http://localhost:8080/utilizadores";
         private const string apiUrlBaseDisciplina = "http://localhost:8080/disciplinas";
-
+        private const string apiUrlBasePergunta = "http://localhost:8080/atividadesPergunta";
+        #endregion
         public async Task<ObservableCollection<NivelDificuldade>> GetNiveisDificuldadeAsync()
         {
             return await _request.GetAsync<ObservableCollection<NivelDificuldade>>(apiUrlBaseNivel, _token);
@@ -39,7 +40,7 @@ namespace Estudex0._1a.Services.Professor
         {
             return await _request.PostAsync<Atividade>(apiUrlBase, a, _token);
         }
-
+        #region Métodos Post
         public async Task<ObservableCollection<Atividade>> GetAtividadesAsync()
         {
             ObservableCollection<Models.Atividade> listaAtividades = await
@@ -47,6 +48,11 @@ namespace Estudex0._1a.Services.Professor
             return listaAtividades;
         }
 
+        public async Task<AtividadePergunta> PostPerguntaAsync(AtividadePergunta p)
+        {
+            return await _request.PostAsync<AtividadePergunta>(apiUrlBasePergunta, p, _token);
+        }
+        #endregion
         public async Task<Atividade> GetAtividadeAsync(int atividadeId)
         {
             string urlComplementar = string.Format("/{0}", atividadeId);
