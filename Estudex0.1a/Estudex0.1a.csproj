@@ -66,7 +66,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="View\AlunoViews\ListagemDuvidasAlunoView.xaml.cs">
+	    <DependentUpon>ListagemDuvidasAlunoView.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiXaml Update="View\AlunoViews\InserirDuvidaView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\AlunoViews\ListagemDuvidasAlunoView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\ProfessorViews\AtividadeView.xaml">

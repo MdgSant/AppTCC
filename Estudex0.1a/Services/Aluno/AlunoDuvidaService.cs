@@ -35,15 +35,5 @@ namespace Estudex0._1a.Services.Aluno
             return await _request.PostAsync<Duvida>(apiUrlBase, d, _token);
         }
 
-        public async Task<int> PutDuvidaAsync(Duvida d)
-        {
-            return await _request.PutAsync(apiUrlBase, d, _token);
-        }
-
-        public async Task<int> DeleteDuvidaAsync(int idDuvida)
-        {
-            string urlComplementar = string.Format("/{0}", idDuvida);
-            return await _request.DeleteAsync(apiUrlBase + urlComplementar, _token);
-        }
     }
 }

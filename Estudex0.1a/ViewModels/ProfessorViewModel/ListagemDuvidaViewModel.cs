@@ -71,5 +71,22 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
                     .DisplayAlert("Ops", ex.Message + " Detalhes: " + ex.InnerException, "Ok");
             }
         }
+
+        public async Task ObterDuvidaPorId(int idDuvida)
+        {
+            try
+            {
+                var duvida = await dService.GetDuvidaProfessorAsync(idDuvida);
+                Duvidas.Clear();
+                Duvidas.Add(duvida);
+                Total = Duvidas.Count;
+                OnPropertyChanged(nameof(Duvidas));
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage
+                    .DisplayAlert("Ops", ex.Message + " Detalhes: " + ex.InnerException, "Ok");
+            }
+        }
     }
 }

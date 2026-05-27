@@ -21,4 +21,19 @@ public partial class DuvidaView : ContentPage
     {
         await Shell.Current.GoToAsync("InserirDuvidaView");
     }
+
+    private async void OnBuscarPorIdClicked(object sender, EventArgs e)
+    {
+        var vm = BindingContext as ListagemDuvidaViewModel;
+        if (vm == null) return;
+
+        if (int.TryParse(EntryIdDuvida.Text, out int idDuvida))
+        {
+            await vm.ObterDuvidaPorId(idDuvida);
+        }
+        else
+        {
+            await DisplayAlert("Ops", "Informe um ID válido.", "Ok");
+        }
+    }
 }

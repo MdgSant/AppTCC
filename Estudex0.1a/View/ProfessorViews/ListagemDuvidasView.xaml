@@ -4,7 +4,7 @@
              x:Class="Estudex0._1a.View.ProfessorViews.DuvidaView"
              Title="Dúvidas"
              BackgroundColor="#1a1a2e">
-    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="20" RowSpacing="16">
+    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto" Padding="20" RowSpacing="16">
 
         <!-- Header -->
         <VerticalStackLayout Grid.Row="0" Spacing="4">
@@ -15,7 +15,6 @@
 
         <!-- Cards de métricas -->
         <Grid Grid.Row="1" ColumnDefinitions="*,*,*" ColumnSpacing="10">
-
             <Frame Grid.Column="0" BackgroundColor="#2d2b55" CornerRadius="12"
                    Padding="12" BorderColor="#3d3b6e">
                 <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
@@ -48,24 +47,37 @@
                            TextColor="#c084fc" HorizontalOptions="Center" />
                 </VerticalStackLayout>
             </Frame>
+        </Grid>
 
+        <!-- Filtro por ID -->
+        <Grid Grid.Row="2" ColumnDefinitions="*,Auto" ColumnSpacing="10">
+            <Entry x:Name="EntryIdDuvida"
+                   Placeholder="Buscar por ID da dúvida"
+                   PlaceholderColor="#a0a0c0"
+                   TextColor="#e0e0ff"
+                   BackgroundColor="#2d2b55"
+                   Keyboard="Numeric" />
+            <Button Grid.Column="1"
+                    Text="🔍"
+                    BackgroundColor="#7c3aed"
+                    TextColor="White"
+                    CornerRadius="10"
+                    Clicked="OnBuscarPorIdClicked" />
         </Grid>
 
         <!-- Lista -->
-        <CollectionView Grid.Row="2" ItemsSource="{Binding Duvidas}">
+        <CollectionView Grid.Row="3" ItemsSource="{Binding Duvidas}">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame BackgroundColor="#2d2b55" CornerRadius="14"
                            Padding="16" BorderColor="#3d3b6e" Margin="0,0,0,12">
                         <Grid RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="8">
 
-                            <!-- Nome + Badge Status -->
                             <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
                                 <Label Grid.Column="0"
                                        Text="{Binding Utilizador.Nome}"
                                        FontSize="15" FontAttributes="Bold"
                                        TextColor="#e0e0ff" />
-
                                 <Frame Grid.Column="1" CornerRadius="8"
                                        Padding="8,4" BorderColor="Transparent"
                                        BackgroundColor="#1a3a1a">
@@ -81,7 +93,6 @@
                                             <Setter Property="BackgroundColor" Value="#1a3a1a" />
                                         </DataTrigger>
                                     </Frame.Triggers>
-
                                     <Label Text="{Binding StatusDuvida}" FontSize="12">
                                         <Label.Triggers>
                                             <DataTrigger TargetType="Label"
@@ -99,18 +110,15 @@
                                 </Frame>
                             </Grid>
 
-                            <!-- Disciplina -->
                             <Label Grid.Row="1"
                                    Text="{Binding Disciplina.Nome}"
                                    FontSize="12" TextColor="#a0a0c0" />
 
-                            <!-- Título da dúvida -->
                             <Label Grid.Row="2"
                                    Text="{Binding Titulo}"
                                    FontSize="15" FontAttributes="Bold"
                                    TextColor="#c084fc" />
 
-                            <!-- Descrição + Data -->
                             <Grid Grid.Row="3" ColumnDefinitions="*,Auto">
                                 <Label Grid.Column="0"
                                        Text="{Binding Descricao}"
@@ -129,7 +137,7 @@
         </CollectionView>
 
         <!-- Botão -->
-        <Button Grid.Row="3"
+        <Button Grid.Row="4"
                 Text="+ Nova Dúvida"
                 BackgroundColor="#7c3aed"
                 TextColor="White"
