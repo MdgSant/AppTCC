@@ -1,17 +1,12 @@
 ﻿using AppRpgEtec.ViewModels;
 using Estudex0._1a.Models;
 using Estudex0._1a.Services.Professor;
-using Microsoft.Maui.Controls.Handlers.Compatibility;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 
 namespace Estudex0._1a.ViewModels.ProfessorViewModel
 {
     public class InserirAtividadeViewModel : BaseViewModel
     {
-        private int idAtividade;
         private string titulo;
         private int pontuacaoMaxima;
         private NivelDificuldade nivelDificuldadeSelecionado;
@@ -41,7 +36,9 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
             set { orientadorSelecionado = value; OnPropertyChanged(); }
         }
 
-        public Command SalvarAtividadeCommand { get; set; }
+        // Botão material de apoio — não funcional ainda
+        public Command MaterialApoioCommand { get; set; }
+        public Command ProximoCommand { get; set; }
 
         private ProfessorService aService;
 
@@ -49,7 +46,14 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
         {
             string token = Preferences.Get("UsuarioToken", string.Empty);
             aService = new ProfessorService(token);
-            SalvarAtividadeCommand = new Command(async () => await SalvarAtividade());
+
+            MaterialApoioCommand = new Command(() =>
+            {
+                Application.Current.MainPage
+                    .DisplayAlert("Em breve", "Funcionalidade de material de apoio em desenvolvimento!", "Ok");
+            });
+
+            ProximoCommand = new Command(async () => await Proximo());
         }
 
         public async Task InicializarAsync()
@@ -62,47 +66,41 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
             try
             {
                 var niveis = await aService.GetNiveisDificuldadeAsync();
-                Console.WriteLine("Niveis recebidos: " + niveis?.Count);
+                foreach (var n in niveis) ListaNiveisDificuldade.Add(n);
 
                 var orientadores = await aService.GetOrientadoresAsync();
-                Console.WriteLine("Orientadores recebidos: " + orientadores?.Count);
-
-                foreach (var n in niveis) ListaNiveisDificuldade.Add(n);
                 foreach (var o in orientadores) ListaOrientadores.Add(o);
             }
             catch (Exception ex)
             {
                 await Application.Current.MainPage
-                    .DisplayAlert("Erro CarregarListas", ex.Message + " | " + ex.InnerException, "Ok");
+                    .DisplayAlert("Erro", ex.Message + " | " + ex.InnerException, "Ok");
             }
         }
 
-        public async Task SalvarAtividade()
+        private async Task Proximo()
         {
-            try
-            {
-                if (string.IsNullOrEmpty(Titulo) || NivelDificuldadeSelecionado == null || OrientadorSelecionado == null)
-                {
-                    await Application.Current.MainPage.DisplayAlert("Atenção", "Preencha todos os campos!", "Ok");
-                    return;
-                }
-
-                Atividade model = new Atividade()
-                {
-                    Titulo = this.titulo,
-                    PontuacaoMaxima = this.pontuacaoMaxima,
-                    IdOrientador = OrientadorSelecionado.IdUtilizador,
-                    NivelDificuldade = NivelDificuldadeSelecionado
-                };
-                var atividade = await aService.PostAtividadeAsync(model);
-
-                await Shell.Current.GoToAsync($"InserirPerguntasView?idAtividade={atividade.IdAtividade}");
-            }
-            catch (Exception ex)
+            if (string.IsNullOrEmpty(Titulo) || NivelDificuldadeSelecionado == null || OrientadorSelecionado == null)
             {
                 await Application.Current.MainPage
-                    .DisplayAlert("Ops", ex.Message + " Detalhes: " + ex.InnerException, "Ok");
+                    .DisplayAlert("Atenção", "Preencha todos os campos!", "Ok");
+                return;
             }
+
+            // Monta o rascunho e passa para a próxima tela
+            var rascunho = new AtividadeRascunho
+            {
+                Titulo = this.titulo,
+                PontuacaoMaxima = this.pontuacaoMaxima,
+                Orientador = OrientadorSelecionado,
+                NivelDificuldade = NivelDificuldadeSelecionado
+            };
+
+            // Serializa para passar via navegação
+            var json = System.Text.Json.JsonSerializer.Serialize(rascunho);
+            var encoded = Uri.EscapeDataString(json);
+
+            await Shell.Current.GoToAsync($"InserirPerguntasView?rascunho={encoded}");
         }
     }
 }

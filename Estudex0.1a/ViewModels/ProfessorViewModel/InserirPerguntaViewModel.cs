@@ -2,17 +2,18 @@
 using Estudex0._1a.Models;
 using Estudex0._1a.Services.Professor;
 using System.Collections.ObjectModel;
+using System.Text.Json;
 
 namespace Estudex0._1a.ViewModels.ProfessorViewModel
 {
     public class InserirPerguntaViewModel : BaseViewModel
     {
         private ProfessorService aService;
+        private AtividadeRascunho rascunho;
 
-        private int idAtividade;
-        private int questaoAtual = 1;
         private const int maxQuestoes = 10;
         private const int maxOpcoes = 5;
+        private int questaoAtual = 1;
 
         private string enunciado;
         public string Enunciado
@@ -28,55 +29,82 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
             set { contadorQuestao = value; OnPropertyChanged(); }
         }
 
-        public ObservableCollection<PerguntasOpcoes> Opcoes { get; set; } = new();
+        private string rascunhoJson;
+        public string RascunhoJson
+        {
+            set
+            {
+                rascunhoJson = Uri.UnescapeDataString(value);
+                rascunho = JsonSerializer.Deserialize<AtividadeRascunho>(rascunhoJson);
+            }
+        }
+
+        public ObservableCollection<OpcaoItem> Opcoes { get; set; } = new();
 
         public Command AdicionarOpcaoCommand { get; set; }
-        public Command<PerguntasOpcoes> MarcarCorretaCommand { get; set; }
-        public Command<PerguntasOpcoes> RemoverOpcaoCommand { get; set; }
+        public Command<OpcaoItem> RemoverOpcaoCommand { get; set; }
+        public Command<OpcaoItem> MarcarCorretaCommand { get; set; }
         public Command ProximaQuestaoCommand { get; set; }
         public Command FinalizarAtividadeCommand { get; set; }
 
-        public InserirPerguntaViewModel(int idAtividade)
+        public InserirPerguntaViewModel()
         {
             string token = Preferences.Get("UsuarioToken", string.Empty);
             aService = new ProfessorService(token);
-            this.idAtividade = idAtividade;
 
             AtualizarContador();
             AdicionarOpcaoInicial();
 
-            AdicionarOpcaoCommand = new Command(AdicionarOpcao,
+            AdicionarOpcaoCommand = new Command(
+                AdicionarOpcao,
                 () => Opcoes.Count < maxOpcoes);
 
-            MarcarCorretaCommand = new Command<PerguntasOpcoes>(opcao =>
+            RemoverOpcaoCommand = new Command<OpcaoItem>(opcao =>
+            {
+                if (Opcoes.Count > 1)
+                {
+                    Opcoes.Remove(opcao);
+                    AtualizarLetras();
+                    ((Command)AdicionarOpcaoCommand).ChangeCanExecute();
+                }
+            });
+
+            MarcarCorretaCommand = new Command<OpcaoItem>(opcao =>
             {
                 foreach (var o in Opcoes) o.Correta = false;
                 opcao.Correta = true;
                 OnPropertyChanged(nameof(Opcoes));
             });
 
-            RemoverOpcaoCommand = new Command<PerguntasOpcoes>(opcao =>
-            {
-                if (Opcoes.Count > 1)
-                    Opcoes.Remove(opcao);
-            });
-
-            ProximaQuestaoCommand = new Command(async () => await SalvarEProximo());
-            FinalizarAtividadeCommand = new Command(async () => await SalvarEFinalizar());
+            ProximaQuestaoCommand = new Command(async () => await ProximaQuestao());
+            FinalizarAtividadeCommand = new Command(async () => await FinalizarAtividade());
         }
 
         private void AdicionarOpcaoInicial()
         {
-            Opcoes.Add(new PerguntasOpcoes { Descricao = "", Correta = false });
+            Opcoes.Add(new OpcaoItem { Letra = "A", Descricao = "", Correta = false });
         }
 
         private void AdicionarOpcao()
         {
             if (Opcoes.Count < maxOpcoes)
             {
-                Opcoes.Add(new PerguntasOpcoes { Descricao = "", Correta = false });
+                string[] letras = { "A", "B", "C", "D", "E" };
+                Opcoes.Add(new OpcaoItem
+                {
+                    Letra = letras[Opcoes.Count],
+                    Descricao = "",
+                    Correta = false
+                });
                 ((Command)AdicionarOpcaoCommand).ChangeCanExecute();
             }
+        }
+
+        private void AtualizarLetras()
+        {
+            string[] letras = { "A", "B", "C", "D", "E" };
+            for (int i = 0; i < Opcoes.Count; i++)
+                Opcoes[i].Letra = letras[i];
         }
 
         private void AtualizarContador()
@@ -84,13 +112,36 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
             ContadorQuestao = $"{questaoAtual} / {maxQuestoes}";
         }
 
-        private AtividadePergunta MontarPergunta()
+        private bool Validar()
+        {
+            if (string.IsNullOrEmpty(Enunciado))
+            {
+                Application.Current.MainPage.DisplayAlert("Atenção", "Preencha o enunciado!", "Ok");
+                return false;
+            }
+            if (!Opcoes.Any(o => o.Correta))
+            {
+                Application.Current.MainPage.DisplayAlert("Atenção", "Marque uma opção como correta!", "Ok");
+                return false;
+            }
+            if (Opcoes.Any(o => string.IsNullOrEmpty(o.Descricao)))
+            {
+                Application.Current.MainPage.DisplayAlert("Atenção", "Preencha todas as alternativas!", "Ok");
+                return false;
+            }
+            return true;
+        }
+
+        private AtividadePergunta MontarPerguntaAtual()
         {
             return new AtividadePergunta
             {
                 Enunciado = this.enunciado,
-                Atividade = new Atividade { IdAtividade = idAtividade },
-                Opcoes = Opcoes.ToList()
+                Opcoes = Opcoes.Select(o => new PerguntasOpcoes
+                {
+                    Descricao = o.Descricao,
+                    Correta = o.Correta
+                }).ToList()
             };
         }
 
@@ -102,43 +153,54 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
             ((Command)AdicionarOpcaoCommand).ChangeCanExecute();
         }
 
-        private async Task SalvarEProximo()
+        private async Task ProximaQuestao()
         {
             if (!Validar()) return;
 
-            try
-            {
-                await aService.PostPerguntaAsync(MontarPergunta());
+            rascunho.Perguntas.Add(MontarPerguntaAtual());
 
-                if (questaoAtual >= maxQuestoes)
-                {
-                    await Application.Current.MainPage
-                        .DisplayAlert("Aviso", "Limite de 10 questões atingido!", "Ok");
-                    await Shell.Current.GoToAsync("../..");
-                    return;
-                }
-
-                questaoAtual++;
-                AtualizarContador();
-                LimparFormulario();
-            }
-            catch (Exception ex)
+            if (questaoAtual >= maxQuestoes)
             {
                 await Application.Current.MainPage
-                    .DisplayAlert("Ops", ex.Message + " | " + ex.InnerException, "Ok");
+                    .DisplayAlert("Aviso", "Limite de 10 questões atingido!", "Ok");
+                await FinalizarAtividade();
+                return;
             }
+
+            questaoAtual++;
+            AtualizarContador();
+            LimparFormulario();
         }
 
-        private async Task SalvarEFinalizar()
+        private async Task FinalizarAtividade()
         {
             if (!Validar()) return;
 
+            // Adiciona a pergunta atual ao rascunho
+            rascunho.Perguntas.Add(MontarPerguntaAtual());
+
             try
             {
-                await aService.PostPerguntaAsync(MontarPergunta());
+                // 1. Salva a atividade
+                var atividade = await aService.PostAtividadeAsync(new Atividade
+                {
+                    Titulo = rascunho.Titulo,
+                    PontuacaoMaxima = rascunho.PontuacaoMaxima,
+                    IdOrientador = rascunho.Orientador.IdUtilizador,
+                    NivelDificuldade = rascunho.NivelDificuldade
+                });
+
+                // 2. Copia a lista antes de iterar para evitar o erro de coleção modificada
+                var perguntasParaSalvar = rascunho.Perguntas.ToList();
+
+                foreach (var pergunta in perguntasParaSalvar)
+                {
+                    pergunta.Atividade = new Atividade { IdAtividade = atividade.IdAtividade };
+                    await aService.PostPerguntaAsync(pergunta);
+                }
 
                 await Application.Current.MainPage
-                    .DisplayAlert("Sucesso", "Atividade finalizada com sucesso!", "Ok");
+                    .DisplayAlert("Sucesso", $"Atividade criada com {perguntasParaSalvar.Count} questão(ões)!", "Ok");
 
                 await Shell.Current.GoToAsync("../..");
             }
@@ -148,28 +210,29 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
                     .DisplayAlert("Ops", ex.Message + " | " + ex.InnerException, "Ok");
             }
         }
+    }
 
-        private bool Validar()
+    // Classe auxiliar para as opções com Letra dinâmica
+    public class OpcaoItem : AppRpgEtec.ViewModels.BaseViewModel
+    {
+        private string letra;
+        private string descricao;
+        private bool correta;
+
+        public string Letra
         {
-            if (string.IsNullOrEmpty(Enunciado))
-            {
-                Application.Current.MainPage
-                    .DisplayAlert("Atenção", "Preencha o enunciado!", "Ok");
-                return false;
-            }
-            if (!Opcoes.Any(o => o.Correta))
-            {
-                Application.Current.MainPage
-                    .DisplayAlert("Atenção", "Marque pelo menos uma opção como correta!", "Ok");
-                return false;
-            }
-            if (Opcoes.Any(o => string.IsNullOrEmpty(o.Descricao)))
-            {
-                Application.Current.MainPage
-                    .DisplayAlert("Atenção", "Preencha todas as alternativas!", "Ok");
-                return false;
-            }
-            return true;
+            get => letra;
+            set { letra = value; OnPropertyChanged(); }
+        }
+        public string Descricao
+        {
+            get => descricao;
+            set { descricao = value; OnPropertyChanged(); }
+        }
+        public bool Correta
+        {
+            get => correta;
+            set { correta = value; OnPropertyChanged(); }
         }
     }
 }

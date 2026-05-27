@@ -61,7 +61,13 @@
                                     <CheckBox Grid.Column="0"
                                           IsChecked="{Binding Correta}"
                                           Color="#7c3aed"
-                                          VerticalOptions="Center" />
+                                          VerticalOptions="Center" >
+                                              <CheckBox.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.MarcarCorretaCommand}"
+                                                   CommandParameter="{Binding .}" />
+                                        </CheckBox.GestureRecognizers>
+                                    </CheckBox>
 
                                     <!-- Letra -->
                                     <Frame Grid.Column="1"
@@ -69,11 +75,11 @@
                                         CornerRadius="6" Padding="6,4"
                                         BorderColor="Transparent"
                                         WidthRequest="30" HeightRequest="30">
-                                        <Label Text="A" FontSize="13"
-                                           FontAttributes="Bold"
-                                           TextColor="#c084fc"
-                                           HorizontalOptions="Center"
-                                           VerticalOptions="Center" />
+                                        <Label Text="{Binding Letra}" FontSize="13"
+                                               FontAttributes="Bold"
+                                               TextColor="#c084fc"
+                                               HorizontalOptions="Center"
+                                               VerticalOptions="Center" />
                                     </Frame>
 
                                     <!-- Input -->
