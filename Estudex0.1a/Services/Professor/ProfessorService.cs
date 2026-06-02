@@ -4,30 +4,24 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using Estudex0._1a.Constants;
 
 namespace Estudex0._1a.Services.Professor
 {
     public class ProfessorService : Request
     {
         private readonly Request _request;
-        #region Conexão API - caminhos
-        private const string apiUrlBase = "http://localhost:8080/atividades";
-        private const string apiUrlBaseNivel = "http://localhost:8080/niveldificuldade";
-        private const string apiUrlBaseUtilizador = "http://localhost:8080/utilizadores";
-        private const string apiUrlBaseDisciplina = "http://localhost:8080/disciplinas";
-        private const string apiUrlBasePergunta = "http://localhost:8080/atividadesPergunta";
-        #endregion
         public async Task<ObservableCollection<NivelDificuldade>> GetNiveisDificuldadeAsync()
         {
-            return await _request.GetAsync<ObservableCollection<NivelDificuldade>>(apiUrlBaseNivel, _token);
+            return await _request.GetAsync<ObservableCollection<NivelDificuldade>>(URLsAPI.NivelDificuldade, _token);
         }
         public async Task<ObservableCollection<Utilizador>> GetOrientadoresAsync()
         {
-            return await _request.GetAsync<ObservableCollection<Utilizador>>(apiUrlBaseUtilizador, _token);
+            return await _request.GetAsync<ObservableCollection<Utilizador>>(URLsAPI.Utilizadores, _token);
         }
         public async Task<ObservableCollection<Disciplina>> GetDisciplinasAsync()
         {
-            return await _request.GetAsync<ObservableCollection<Disciplina>>(apiUrlBaseDisciplina, _token);
+            return await _request.GetAsync<ObservableCollection<Disciplina>>(URLsAPI.Disciplinas, _token);
         }
 
         private string _token;
@@ -38,39 +32,36 @@ namespace Estudex0._1a.Services.Professor
         }
         public async Task<Atividade> PostAtividadeAsync(Atividade a)
         {
-            return await _request.PostAsync<Atividade>(apiUrlBase, a, _token);
+            return await _request.PostAsync<Atividade>(URLsAPI.Atividades, a, _token);
         }
         #region Métodos Post
         public async Task<ObservableCollection<Atividade>> GetAtividadesAsync()
         {
             ObservableCollection<Models.Atividade> listaAtividades = await
-                _request.GetAsync<ObservableCollection<Models.Atividade>>(apiUrlBase, _token);
+                _request.GetAsync<ObservableCollection<Models.Atividade>>(URLsAPI.Atividades, _token);
             return listaAtividades;
         }
 
         public async Task<AtividadePergunta> PostPerguntaAsync(AtividadePergunta p)
         {
-            return await _request.PostAsync<AtividadePergunta>(apiUrlBasePergunta, p, _token);
+            return await _request.PostAsync<AtividadePergunta>(URLsAPI.AtividadesPergunta, p, _token);
         }
         #endregion
         public async Task<Atividade> GetAtividadeAsync(int atividadeId)
         {
-            string urlComplementar = string.Format("/{1}", atividadeId);
-            var atividade = await _request.GetAsync<Models.Atividade>(apiUrlBase + urlComplementar, _token);
-            return atividade;
+            string url = $"{URLsAPI.Atividades}/{atividadeId}";
+            return await _request.GetAsync<Atividade>(url, _token);
         }
 
         public async Task<int> PutAtividadeAsync(Atividade a)
         {
-            var result = await _request.PutAsync(apiUrlBase, a, _token);
-            return result;
+            return await _request.PutAsync(URLsAPI.Atividades, a, _token);
         }
 
         public async Task<int> DeleteAtividadeAsync(int atividadeId)
         {
-            string urlComplementar = string.Format("/{1}", atividadeId);
-            var result = await _request.DeleteAsync(apiUrlBase + urlComplementar, _token);
-            return result;
+            string url = $"{URLsAPI.Atividades}/{atividadeId}";
+            return await _request.DeleteAsync(url, _token);
         }
     }
 }

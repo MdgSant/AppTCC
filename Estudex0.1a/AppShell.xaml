@@ -3,7 +3,8 @@
     x:Class="Estudex0._1a.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Estudex0._1a.View.ProfessorViews"
+    xmlns:professor="clr-namespace:Estudex0._1a.View.ProfessorViews"
+    xmlns:aluno="clr-namespace:Estudex0._1a.View.AlunoViews"
     Title="EstudeX"
     FlyoutBehavior="Flyout"
     FlyoutBackgroundColor="#1a1a2e">
@@ -31,17 +32,30 @@
         </DataTemplate>
     </Shell.ItemTemplate>
 
-    <FlyoutItem Title="Atividades">
+    <!-- Professor -->
+    <FlyoutItem Title="[Prof] Atividades">
         <ShellContent
-            ContentTemplate="{DataTemplate local:AtividadeView}"
+            ContentTemplate="{DataTemplate professor:AtividadeView}"
             Route="AtividadeView" />
     </FlyoutItem>
 
-    <FlyoutItem Title="Dúvidas">
+    <FlyoutItem Title="[Prof] Dúvidas">
         <ShellContent
-            ContentTemplate="{DataTemplate local:DuvidaView}"
+            ContentTemplate="{DataTemplate professor:DuvidaView}"
             Route="DuvidaView" />
     </FlyoutItem>
 
+    <!-- Aluno -->
+    <FlyoutItem Title="[Aluno] Atividades">
+        <ShellContent
+            ContentTemplate="{DataTemplate aluno:ListagemAtividadeAlunoView}"
+            Route="ListagemAtividadeAlunoView" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="[Aluno] Dúvidas">
+        <ShellContent
+            ContentTemplate="{DataTemplate aluno:ListagemDuvidasAlunoView}"
+            Route="ListagemDuvidasAlunoView" />
+    </FlyoutItem>
 
 </Shell>

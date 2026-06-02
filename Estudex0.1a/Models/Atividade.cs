@@ -22,5 +22,8 @@ namespace Estudex0._1a.Models
 
         [JsonProperty("nivelDificuldade")]
         public NivelDificuldade NivelDificuldade { get; set; }
+
+        [JsonProperty("perguntas")]
+        public List<AtividadePergunta> Perguntas { get; set; }
     }
 }

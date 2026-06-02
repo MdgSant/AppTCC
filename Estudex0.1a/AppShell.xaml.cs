@@ -13,6 +13,10 @@ public partial class AppShell : Shell
             typeof(Estudex0._1a.View.ProfessorViews.InserirAtividadeView));
         Routing.RegisterRoute("InserirPerguntasView",
             typeof(Estudex0._1a.View.ProfessorViews.InserirPerguntaView));
+        Routing.RegisterRoute("DetalhesAtividadeView",
+    typeof(Estudex0._1a.View.ProfessorViews.DetalhesAtividadeView));
+        Routing.RegisterRoute("ResponderAtividadeView",
+    typeof(Estudex0._1a.View.AlunoViews.ResponderAtividadeView));
         #endregion
         #region Rotas Duvidas
         Routing.RegisterRoute("ListarDuvidaView",
