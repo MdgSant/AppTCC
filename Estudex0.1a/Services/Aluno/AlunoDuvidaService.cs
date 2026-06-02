@@ -35,5 +35,16 @@ namespace Estudex0._1a.Services.Aluno
             return await _request.PostAsync<Duvida>(apiUrlBase, d, _token);
         }
 
+        public async Task<Duvida> GetDuvidaAlunoAsync(int idDuvida)
+        {
+            string urlComplementar = string.Format("/aluno/{2}", idDuvida);
+            return await _request.GetAsync<Duvida>(apiUrlBase + urlComplementar, _token);
+        }
+
+        public async Task<ObservableCollection<Duvida>> GetMinhasDuvidasAsync(int idUtilizador)
+        {
+            string urlComplementar = string.Format("/aluno/{2}", idUtilizador);
+            return await _request.GetAsync<ObservableCollection<Duvida>>(apiUrlBase + urlComplementar, _token);
+        }
     }
 }

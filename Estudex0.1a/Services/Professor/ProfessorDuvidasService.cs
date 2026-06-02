@@ -49,7 +49,7 @@ namespace Estudex0._1a.Services.Professor
 
         public async Task<Duvida> GetDuvidaProfessorAsync(int idDuvida)
         {
-            string urlComplementar = string.Format("/professor/{0}", idDuvida);
+            string urlComplementar = string.Format("/professor/{1}", idDuvida);
             return await _request.GetAsync<Duvida>(apiUrlBase + urlComplementar, _token);
         }
     }

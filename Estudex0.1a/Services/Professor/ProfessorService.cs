@@ -55,7 +55,7 @@ namespace Estudex0._1a.Services.Professor
         #endregion
         public async Task<Atividade> GetAtividadeAsync(int atividadeId)
         {
-            string urlComplementar = string.Format("/{0}", atividadeId);
+            string urlComplementar = string.Format("/{1}", atividadeId);
             var atividade = await _request.GetAsync<Models.Atividade>(apiUrlBase + urlComplementar, _token);
             return atividade;
         }
@@ -68,7 +68,7 @@ namespace Estudex0._1a.Services.Professor
 
         public async Task<int> DeleteAtividadeAsync(int atividadeId)
         {
-            string urlComplementar = string.Format("/{0}", atividadeId);
+            string urlComplementar = string.Format("/{1}", atividadeId);
             var result = await _request.DeleteAsync(apiUrlBase + urlComplementar, _token);
             return result;
         }
