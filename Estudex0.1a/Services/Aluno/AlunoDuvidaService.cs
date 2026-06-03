@@ -1,4 +1,5 @@
 ﻿using EstudeX.Services;
+using Estudex0._1a.Constants;
 using Estudex0._1a.Models;
 using System;
 using System.Collections.Generic;
@@ -21,30 +22,27 @@ namespace Estudex0._1a.Services.Aluno
 
         public async Task<ObservableCollection<Duvida>> GetDuvidasAsync()
         {
-            return await _request.GetAsync<ObservableCollection<Duvida>>(apiUrlBase, _token);
+            return await _request.GetAsync<ObservableCollection<Duvida>>(URLsAPI.Duvidas, _token);
         }
 
         public async Task<Duvida> GetDuvidaAsync(int idDuvida)
         {
-            string urlComplementar = string.Format("/{0}", idDuvida);
-            return await _request.GetAsync<Duvida>(apiUrlBase + urlComplementar, _token);
+            return await _request.GetAsync<Duvida>($"{URLsAPI.Duvidas}/{idDuvida}", _token);
         }
 
         public async Task<Duvida> PostDuvidaAsync(Duvida d)
         {
-            return await _request.PostAsync<Duvida>(apiUrlBase, d, _token);
+            return await _request.PostAsync<Duvida>(URLsAPI.Duvidas, d, _token);
         }
 
         public async Task<Duvida> GetDuvidaAlunoAsync(int idDuvida)
         {
-            string urlComplementar = string.Format("/aluno/{2}", idDuvida);
-            return await _request.GetAsync<Duvida>(apiUrlBase + urlComplementar, _token);
+            return await _request.GetAsync<Duvida>($"{URLsAPI.Duvidas}/aluno/{idDuvida}", _token);
         }
 
         public async Task<ObservableCollection<Duvida>> GetMinhasDuvidasAsync(int idUtilizador)
         {
-            string urlComplementar = string.Format("/aluno/{2}", idUtilizador);
-            return await _request.GetAsync<ObservableCollection<Duvida>>(apiUrlBase + urlComplementar, _token);
+            return await _request.GetAsync<ObservableCollection<Duvida>>($"{URLsAPI.Duvidas}/aluno/{idUtilizador}", _token);
         }
     }
 }
