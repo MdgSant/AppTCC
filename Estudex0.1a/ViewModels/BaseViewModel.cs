@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
-namespace AppRpgEtec.ViewModels
+namespace EstudeX.ViewModels;
+
+public class BaseViewModel : INotifyPropertyChanged
 {
-    public class BaseViewModel : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler PropertyChanged;
 
-        public void OnPropertyChanged([CallerMemberName] string name = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+    public void OnPropertyChanged([CallerMemberName] string name = "")
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }

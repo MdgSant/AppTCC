@@ -7,6 +7,7 @@ namespace Estudex0._1a
         public App()
         {
             InitializeComponent();
+            MainPage = new NavigationPage(new View.Utilizador.LoginView());
         }
 
         protected override Window CreateWindow(IActivationState? activationState)

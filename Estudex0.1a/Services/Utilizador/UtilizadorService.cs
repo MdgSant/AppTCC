@@ -13,7 +13,7 @@ public class UtilizadorService : Request
     private const string ApiUrlBase = "http://SEU_IP:8080/utilizadores";
     private readonly string _token;
 
-    public UtilizadorService(string token)
+    public UtilizadorService(string token = "")
     {
         _request = new Request();
         _token = token;
@@ -42,5 +42,19 @@ public class UtilizadorService : Request
     public async Task<int> DeleteAsync(int id)
     {
         return await _request.DeleteAsync($"{ApiUrlBase}/{id}", _token);
+    }
+    
+    //CADASTRO
+    public async Task<Utilizador> PostRegistrarUtilizadorAsync(LoginRequest u)
+    {
+        string urlComplementar = "/registrar";
+        return await _request.PostAsync<Utilizador>(ApiUrlBase + urlComplementar, u, string.Empty);
+    }
+
+    //LOGIN
+    public async Task<LoginResponse> PostAutenticarUtilizadorAsync(LoginRequest u)
+    {
+        string urlComplementar = "/autenticar";
+        return await _request.PostAsync<LoginResponse>(ApiUrlBase + urlComplementar, u, string.Empty);
     }
 }

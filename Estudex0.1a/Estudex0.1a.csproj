@@ -101,4 +101,13 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="View\Utilizador\CadastroView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </None>
+	  <None Update="View\Utilizador\LoginView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </None>
+	</ItemGroup>
+
 </Project>
