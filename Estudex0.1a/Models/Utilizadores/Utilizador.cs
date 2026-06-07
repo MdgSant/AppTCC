@@ -13,11 +13,11 @@ namespace Estudex0._1a.Models
 
         [JsonProperty("nome")]
         public string Nome { get; set; } = string.Empty;
-        //public string CPF { get; set; } = string.Empty;
-        //public string Cidade { get; set; } = string.Empty;
-        //public string UF { get; set; } = string.Empty;
-        //public byte[] Foto { get; set; }
-        //public string SenhaHash { get; set; } = string.Empty;
-       // public TipoUltilizador TipoUltilizador { get; set;}
+        public string CPF { get; set; } = string.Empty;
+        public string Cidade { get; set; } = string.Empty;
+        public string UF { get; set; } = string.Empty;
+        public byte[] Foto { get; set; }
+        public string SenhaHash { get; set; } = string.Empty;
+        public TipoUltilizador TipoUltilizador { get; set;}
     }
 }

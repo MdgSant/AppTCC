@@ -62,9 +62,14 @@ namespace Estudex0._1a.ViewModels.UtilizadoresViewModel
                     Preferences.Set("UtilizadorId", uAutenticado.IdUtilizador);
                     Preferences.Set("UtilizadorNome", uAutenticado.Nome);
                     Preferences.Set("UtilizadorToken", uAutenticado.Token);
+                    Preferences.Set("UtilizadorTipo", uAutenticado.TipoUtilizador); // ✅ salva o tipo
 
                     await Application.Current.MainPage.DisplayAlert("Informação", mensagem, "Ok");
-                    Application.Current.MainPage = new MainPage();
+
+                    // ✅ redireciona para o Shell com perfil correto
+                    var shell = new AppShell();
+                    shell.AplicarPerfil();
+                    Application.Current.MainPage = shell;
                 }
                 else
                 {
@@ -77,14 +82,72 @@ namespace Estudex0._1a.ViewModels.UtilizadoresViewModel
             }
         }
 
+
+        //CADASTRO
+        private string nome = string.Empty;
+        public string Nome
+        {
+            get { return nome; }
+            set { nome = value; OnPropertyChanged(); }
+        }
+
+        private string cpf = string.Empty;
+        public string Cpf
+        {
+            get { return cpf; }
+            set { cpf = value; OnPropertyChanged(); }
+        }
+
+        private string cidade = string.Empty;
+        public string Cidade
+        {
+            get { return cidade; }
+            set { cidade = value; OnPropertyChanged(); }
+        }
+
+        private string uf = string.Empty;
+        public string Uf
+        {
+            get { return uf; }
+            set { uf = value; OnPropertyChanged(); }
+        }
+
+        private string email = string.Empty;
+        public string Email
+        {
+            get { return email; }
+            set { email = value; OnPropertyChanged(); }
+        }
+
+        private string senha = string.Empty;
+        public string Senha
+        {
+            get { return senha; }
+            set { senha = value; OnPropertyChanged(); }
+        }
+
+        private string tipoSelecionado = string.Empty;
+        public string TipoSelecionado
+        {
+            get { return tipoSelecionado; }
+            set { tipoSelecionado = value; OnPropertyChanged(); }
+        }
+
         //CADASTRO
         public async Task RegistrarUtilizador()
         {
             try
             {
-                LoginRequest u = new LoginRequest();
+                int idTipo = TipoSelecionado == "Professor" ? 2 : 1;
+
+                Utilizador u = new Utilizador();
+                u.Nome = Nome;
+                u.CPF = Cpf;
+                u.Cidade = Cidade;
+                u.UF = Uf;
                 u.Email = Email;
-                u.Senha = Senha;
+                u.SenhaHash = Senha;
+                u.TipoUltilizador = (TipoUltilizador)idTipo;
 
                 Utilizador uRegistrado = await uService.PostRegistrarUtilizadorAsync(u);
 

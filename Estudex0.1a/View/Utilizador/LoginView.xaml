@@ -3,15 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Estudex0._1a.View.Utilizador.LoginView"
              Title="LoginView">
-    <VerticalStackLayout>  
-    <Entry Placeholder="Digite seu nome de usuário" Text ="{Binding Login}"  
-            Margin="0,10,0,0" VerticalOptions="Fill" HorizontalOptions="Fill">
-         </Entry>
-    <Entry Placeholder="Digite a senha" Text="{Binding Senha}" IsPassword="True"  
+<VerticalStackLayout>
+        <Entry Placeholder="Digite seu e-mail" Text="{Binding Email}"
+       Margin="0,10,0,0" VerticalOptions="Fill" HorizontalOptions="Fill"/>
+
+        <Entry Placeholder="Digite a senha" Text="{Binding Senha}" IsPassword="True"  
            Margin="0,10,0,0" VerticalOptions="Fill" HorizontalOptions="Fill">
         </Entry>
     
-    <Button Text="Entrar" Command="{Binding AutenticarCommand}" HorizontalOptions="Fill" 
+        <Button Text="Entrar" Command="{Binding AutenticarCommand}" HorizontalOptions="Fill" 
          Margin="0,10,0,0"/>
 
         <HorizontalStackLayout  
@@ -24,5 +24,5 @@
             </HorizontalStackLayout.GestureRecognizers>
         </HorizontalStackLayout>
         
-    </VerticalStackLayout>
+</VerticalStackLayout>
 </ContentPage>

@@ -43,9 +43,9 @@ public class UtilizadorService : Request
     {
         return await _request.DeleteAsync($"{ApiUrlBase}/{id}", _token);
     }
-    
+
     //CADASTRO
-    public async Task<Utilizador> PostRegistrarUtilizadorAsync(LoginRequest u)
+    public async Task<Utilizador> PostRegistrarUtilizadorAsync(Utilizador u)
     {
         string urlComplementar = "/registrar";
         return await _request.PostAsync<Utilizador>(ApiUrlBase + urlComplementar, u, string.Empty);

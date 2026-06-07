@@ -15,7 +15,8 @@
                    FontSize="22"
                    FontAttributes="Bold"
                    TextColor="#c084fc" />
-            <Label Text="Prof"
+            <Label x:Name="LabelPerfil"
+                   Text=""
                    FontSize="12"
                    TextColor="#a0a0c0" />
         </VerticalStackLayout>
@@ -33,26 +34,24 @@
     </Shell.ItemTemplate>
 
     <!-- Professor -->
-    <FlyoutItem Title="[Prof] Atividades">
+    <FlyoutItem x:Name="FlyoutProfAtividades" Title="[Prof] Atividades">
         <ShellContent
             ContentTemplate="{DataTemplate professor:AtividadeView}"
             Route="AtividadeView" />
     </FlyoutItem>
-
-    <FlyoutItem Title="[Prof] Dúvidas">
+    <FlyoutItem x:Name="FlyoutProfDuvidas" Title="[Prof] Dúvidas">
         <ShellContent
             ContentTemplate="{DataTemplate professor:DuvidaView}"
             Route="DuvidaView" />
     </FlyoutItem>
 
     <!-- Aluno -->
-    <FlyoutItem Title="[Aluno] Atividades">
+    <FlyoutItem x:Name="FlyoutAlunoAtividades" Title="[Aluno] Atividades">
         <ShellContent
             ContentTemplate="{DataTemplate aluno:ListagemAtividadeAlunoView}"
             Route="ListagemAtividadeAlunoView" />
     </FlyoutItem>
-
-    <FlyoutItem Title="[Aluno] Dúvidas">
+    <FlyoutItem x:Name="FlyoutAlunoDuvidas" Title="[Aluno] Dúvidas">
         <ShellContent
             ContentTemplate="{DataTemplate aluno:ListagemDuvidasAlunoView}"
             Route="ListagemDuvidasAlunoView" />
