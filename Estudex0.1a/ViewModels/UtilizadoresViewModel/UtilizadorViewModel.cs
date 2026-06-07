@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using EstudeX0._1a.Services;
 using Estudex0._1a.Models;
-using EstudeX0._1a.ViewModel.UtilizadorViewModel;
 using System.Windows.Input;
 using EstudeX.ViewModels;
+using EstudeX.Services;
+using Estudex0._1a.Models.Login;
+using Estudex0._1a.Models.Utilizadores.Enum;
+using Estudex0._1a.View.Utilizador;
 
 namespace Estudex0._1a.ViewModels.UtilizadoresViewModel
 {
@@ -27,21 +29,6 @@ namespace Estudex0._1a.ViewModels.UtilizadoresViewModel
             AutenticarCommand = new Command(async () => await AutenticarUtilizador());
             RegistrarCommand = new Command(async () => await RegistrarUtilizador());
             DirecionarCadastroCommand = new Command(async () => await DirecionarParaCadastro());
-        }
-
-
-        private string email = string.Empty;
-        public string Email
-        {
-            get { return email; }
-            set { email = value; OnPropertyChanged(); }
-        }
-
-        private string senha = string.Empty;
-        public string Senha
-        {
-            get { return senha; }
-            set { senha = value; OnPropertyChanged(); }
         }
 
         //LOGIN
@@ -138,8 +125,6 @@ namespace Estudex0._1a.ViewModels.UtilizadoresViewModel
         {
             try
             {
-                int idTipo = TipoSelecionado == "Professor" ? 2 : 1;
-
                 Utilizador u = new Utilizador();
                 u.Nome = Nome;
                 u.CPF = Cpf;
@@ -147,7 +132,7 @@ namespace Estudex0._1a.ViewModels.UtilizadoresViewModel
                 u.UF = Uf;
                 u.Email = Email;
                 u.SenhaHash = Senha;
-                u.TipoUltilizador = (TipoUltilizador)idTipo;
+                u.IdTipoUtilizador = TipoSelecionado == "Professor" ? 2 : 1;
 
                 Utilizador uRegistrado = await uService.PostRegistrarUtilizadorAsync(u);
 

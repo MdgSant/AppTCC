@@ -1,5 +1,6 @@
 ﻿using EstudeX.Services;
 using Estudex0._1a.Models;
+using Estudex0._1a.Models.Login;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,9 +31,9 @@ public class UtilizadorService : Request
     }
 
     public async Task<Utilizador> CreateAsync(Utilizador utilizador)
-    {
-        return await _request.PostAsync(ApiUrlBase, utilizador, _token);
-    }
+{
+    return await _request.PostAsync<Utilizador>(ApiUrlBase, utilizador, _token);
+}
 
     public async Task<int> UpdateAsync(Utilizador utilizador)
     {
@@ -55,6 +56,6 @@ public class UtilizadorService : Request
     public async Task<LoginResponse> PostAutenticarUtilizadorAsync(LoginRequest u)
     {
         string urlComplementar = "/autenticar";
-        return await _request.PostAsync<LoginResponse>(ApiUrlBase + urlComplementar, u, string.Empty);
+        return await _request.PostAsync<LoginResponse, LoginRequest>(ApiUrlBase + urlComplementar, u, string.Empty);
     }
 }

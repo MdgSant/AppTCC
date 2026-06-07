@@ -1,4 +1,4 @@
-﻿using AppRpgEtec.ViewModels;
+﻿using EstudeX.ViewModels;
 using Estudex0._1a.Models;
 using Estudex0._1a.Services.Aluno;
 using Estudex0._1a.Services.Professor;

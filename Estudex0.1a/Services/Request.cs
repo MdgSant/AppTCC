@@ -21,6 +21,21 @@ public class Request
         return result;
     }
 
+    public async Task<TResult> PostAsync<TResult, TBody>(string uri, TBody data, string token)
+    {
+        HttpClient httpClient = new HttpClient();
+        httpClient.DefaultRequestHeaders.Authorization
+            = new AuthenticationHeaderValue("Bearer", token);
+        var content = new StringContent(JsonConvert.SerializeObject(data));
+        content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+        HttpResponseMessage response = await httpClient.PostAsync(uri, content);
+        string serialized = await response.Content.ReadAsStringAsync();
+        if (response.IsSuccessStatusCode)
+            return await Task.Run(() => JsonConvert.DeserializeObject<TResult>(serialized));
+        else
+            throw new Exception(serialized);
+    }
+
     public async Task<TResult> PostAsync<TResult>(string uri, TResult data, string token)
     {
         HttpClient httpClient = new HttpClient();

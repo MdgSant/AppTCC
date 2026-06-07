@@ -1,4 +1,5 @@
-﻿using AppRpgEtec.ViewModels;
+﻿
+using EstudeX.ViewModels;
 using Estudex0._1a.Models;
 using Estudex0._1a.Services.Aluno;
 using System.Collections.ObjectModel;
@@ -117,7 +118,7 @@ namespace Estudex0._1a.ViewModels.AlunoViewModel
     }
 
     // Classe auxiliar para manter a opção selecionada por pergunta
-    public class PerguntaComResposta : AppRpgEtec.ViewModels.BaseViewModel
+    public class PerguntaComResposta : EstudeX.ViewModels.BaseViewModel
     {
         public AtividadePergunta Pergunta { get; set; }
 
@@ -145,7 +146,7 @@ namespace Estudex0._1a.ViewModels.AlunoViewModel
         }
     }
 
-    public class OpcaoComSelecao : AppRpgEtec.ViewModels.BaseViewModel
+    public class OpcaoComSelecao : EstudeX.ViewModels.BaseViewModel
     {
         private PerguntaComResposta perguntaPai;
         public PerguntasOpcoes Opcao { get; set; }

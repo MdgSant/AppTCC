@@ -1,6 +1,6 @@
 ﻿using Estudex0._1a.Models;
 using Estudex0._1a.Services.Professor;
-using AppRpgEtec.ViewModels;
+using EstudeX.ViewModels;
 using System.Collections.ObjectModel;
 
 namespace Estudex0._1a.ViewModels.ProfessorViewModel

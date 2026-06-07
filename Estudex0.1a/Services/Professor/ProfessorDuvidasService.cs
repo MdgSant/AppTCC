@@ -28,9 +28,9 @@ namespace Estudex0._1a.Services.Professor
             return await _request.GetAsync<ObservableCollection<Duvida>>(URLsAPI.Duvidas, _token);
         }
 
-        public async Task<Duvida> GetDuvidaAsync(int idDuvida)
+        public async Task<Duvida> GetDuvidaProfessorAsync(int idDuvida)
         {
-            return await _request.GetAsync<Duvida>($"{URLsAPI.Duvidas}/{idDuvida}", _token);
+            return await _request.GetAsync<Duvida>($"{URLsAPI.Duvidas}/professor/{idDuvida}", _token);
         }
 
         public async Task<Duvida> PostDuvidaAsync(Duvida d)

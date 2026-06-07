@@ -7,7 +7,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using CommunityToolkit.Mvvm.ComponentModel;
-using AppRpgEtec.ViewModels;
+using EstudeX.ViewModels;
 
 namespace Estudex0._1a.ViewModels.ProfessorViewModel
 {

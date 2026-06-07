@@ -1,4 +1,4 @@
-﻿using AppRpgEtec.ViewModels;
+﻿using EstudeX.ViewModels;
 using Estudex0._1a.Models;
 using Estudex0._1a.Services.Professor;
 using System.Collections.ObjectModel;
@@ -213,7 +213,7 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
     }
 
     // Classe auxiliar para as opções com Letra dinâmica
-    public class OpcaoItem : AppRpgEtec.ViewModels.BaseViewModel
+    public class OpcaoItem : EstudeX.ViewModels.BaseViewModel
     {
         private string letra;
         private string descricao;
