@@ -27,7 +27,7 @@ namespace Estudex0._1a.Models
         public string UF { get; set; } = string.Empty;
 
         [JsonProperty("foto")]
-        public byte[] Foto { get; set; }
+        public bool? Foto { get; set; }
 
         [JsonProperty("senhaHash")]
         public string SenhaHash { get; set; } = string.Empty;

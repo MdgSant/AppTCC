@@ -157,13 +157,13 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
         {
             if (!Validar()) return;
 
-            rascunho.Perguntas.Add(MontarPerguntaAtual());
+            rascunho.Perguntas.Add(MontarPerguntaAtual()); // adiciona a pergunta atual
 
             if (questaoAtual >= maxQuestoes)
             {
                 await Application.Current.MainPage
                     .DisplayAlert("Aviso", "Limite de 10 questões atingido!", "Ok");
-                await FinalizarAtividade();
+                await FinalizarAtividade(adicionarAtual: false); // não adiciona de novo
                 return;
             }
 
@@ -172,25 +172,24 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
             LimparFormulario();
         }
 
-        private async Task FinalizarAtividade()
+        private async Task FinalizarAtividade(bool adicionarAtual = true)
         {
             if (!Validar()) return;
 
-            // Adiciona a pergunta atual ao rascunho
-            rascunho.Perguntas.Add(MontarPerguntaAtual());
+            if (adicionarAtual)
+                rascunho.Perguntas.Add(MontarPerguntaAtual()); // só adiciona se veio direto do botão
 
             try
             {
-                // 1. Salva a atividade
                 var atividade = await aService.PostAtividadeAsync(new Atividade
                 {
                     Titulo = rascunho.Titulo,
                     PontuacaoMaxima = rascunho.PontuacaoMaxima,
                     IdOrientador = rascunho.Orientador.IdUtilizador,
-                    NivelDificuldade = rascunho.NivelDificuldade
+                    IdNivelDificuldade = rascunho.NivelDificuldade.IdNivelDificuldade,
+                    IdDisciplina = rascunho.Disciplina.IdDisciplina
                 });
 
-                // 2. Copia a lista antes de iterar para evitar o erro de coleção modificada
                 var perguntasParaSalvar = rascunho.Perguntas.ToList();
 
                 foreach (var pergunta in perguntasParaSalvar)
@@ -212,7 +211,6 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
         }
     }
 
-    // Classe auxiliar para as opções com Letra dinâmica
     public class OpcaoItem : EstudeX.ViewModels.BaseViewModel
     {
         private string letra;
@@ -235,4 +233,4 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
             set { correta = value; OnPropertyChanged(); }
         }
     }
-}
+}mbox 

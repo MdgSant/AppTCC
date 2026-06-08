@@ -16,7 +16,7 @@ public partial class AppShell : Shell
         Routing.RegisterRoute("DetalhesAtividadeView",
             typeof(Estudex0._1a.View.ProfessorViews.DetalhesAtividadeView));
         Routing.RegisterRoute("ListagemAtividadeView",
-           typeof(Estudex0._1a.View.AlunoViews.ListagemAtividadeView));
+           typeof(Estudex0._1a.View.AlunoViews.ListagemAtividadeAlunoView));
         Routing.RegisterRoute("ResponderAtividadeView",
             typeof(Estudex0._1a.View.AlunoViews.ListagemAtividadeView));
         #endregion

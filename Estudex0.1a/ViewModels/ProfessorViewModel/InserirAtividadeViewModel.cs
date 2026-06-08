@@ -11,9 +11,11 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
         private int pontuacaoMaxima;
         private NivelDificuldade nivelDificuldadeSelecionado;
         private Utilizador orientadorSelecionado;
+        private Disciplina disciplinaSelecionada;
 
         public ObservableCollection<NivelDificuldade> ListaNiveisDificuldade { get; set; } = new();
         public ObservableCollection<Utilizador> ListaOrientadores { get; set; } = new();
+        public ObservableCollection<Disciplina> ListaDisciplinas { get; set; } = new();
 
         public string Titulo
         {
@@ -35,8 +37,12 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
             get => orientadorSelecionado;
             set { orientadorSelecionado = value; OnPropertyChanged(); }
         }
+        public Disciplina DisciplinaSelecionada
+        {
+            get => disciplinaSelecionada;
+            set { disciplinaSelecionada = value; OnPropertyChanged(); }
+        }
 
-        // Botão material de apoio — não funcional ainda
         public Command MaterialApoioCommand { get; set; }
         public Command ProximoCommand { get; set; }
 
@@ -70,6 +76,9 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
 
                 var orientadores = await aService.GetOrientadoresAsync();
                 foreach (var o in orientadores) ListaOrientadores.Add(o);
+
+                var disciplinas = await aService.GetDisciplinasAsync();
+                foreach (var d in disciplinas) ListaDisciplinas.Add(d);
             }
             catch (Exception ex)
             {
@@ -80,23 +89,23 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
 
         private async Task Proximo()
         {
-            if (string.IsNullOrEmpty(Titulo) || NivelDificuldadeSelecionado == null || OrientadorSelecionado == null)
+            if (string.IsNullOrEmpty(Titulo) || NivelDificuldadeSelecionado == null
+                || OrientadorSelecionado == null || DisciplinaSelecionada == null)
             {
                 await Application.Current.MainPage
                     .DisplayAlert("Atenção", "Preencha todos os campos!", "Ok");
                 return;
             }
 
-            // Monta o rascunho e passa para a próxima tela
             var rascunho = new AtividadeRascunho
             {
                 Titulo = this.titulo,
                 PontuacaoMaxima = this.pontuacaoMaxima,
                 Orientador = OrientadorSelecionado,
-                NivelDificuldade = NivelDificuldadeSelecionado
+                NivelDificuldade = NivelDificuldadeSelecionado,
+                Disciplina = DisciplinaSelecionada
             };
 
-            // Serializa para passar via navegação
             var json = System.Text.Json.JsonSerializer.Serialize(rascunho);
             var encoded = Uri.EscapeDataString(json);
 

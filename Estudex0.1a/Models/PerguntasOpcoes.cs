@@ -8,7 +8,7 @@ namespace Estudex0._1a.Models
     public class PerguntasOpcoes
     {
         [JsonProperty("idOpcao")]
-        public int IdOpcao { get; set; }
+        public int? IdOpcao { get; set; }
 
         [JsonProperty("descricao")]
         public string Descricao { get; set; }

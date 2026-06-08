@@ -58,33 +58,46 @@
                         </Frame>
                     </VerticalStackLayout>
 
-                    <!-- Grid 2 colunas -->
+                    <!-- Orientador -->
+                    <VerticalStackLayout Spacing="6">
+                        <Label Text="Orientador" FontSize="13" TextColor="#a0a0c0" />
+                        <Picker Title="Selecione o orientador"
+                                TitleColor="#6060a0"
+                                TextColor="White"
+                                BackgroundColor="#1a1a2e"
+                                ItemsSource="{Binding ListaOrientadores}"
+                                ItemDisplayBinding="{Binding Nome}"
+                                SelectedItem="{Binding OrientadorSelecionado}"
+                                HeightRequest="48" />
+                    </VerticalStackLayout>
+
+                    <!-- Grid 2 colunas: Dificuldade + Disciplina -->
                     <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
 
-                        <!-- Orientador -->
+                        <!-- Nível de Dificuldade -->
                         <VerticalStackLayout Spacing="6" Grid.Column="0">
-                            <Label Text="Orientador" FontSize="13" TextColor="#a0a0c0" />
-                            <Picker Title=""
-            TitleColor="#6060a0"
-            TextColor="White"
-            BackgroundColor="#1a1a2e"
-            ItemsSource="{Binding ListaOrientadores}"
-            ItemDisplayBinding="{Binding Nome}"
-            SelectedItem="{Binding OrientadorSelecionado}"
-            HeightRequest="48" />
+                            <Label Text="Dificuldade" FontSize="13" TextColor="#a0a0c0" />
+                            <Picker Title="Selecione"
+                                    TitleColor="#6060a0"
+                                    TextColor="White"
+                                    BackgroundColor="#1a1a2e"
+                                    ItemsSource="{Binding ListaNiveisDificuldade}"
+                                    ItemDisplayBinding="{Binding Nome}"
+                                    SelectedItem="{Binding NivelDificuldadeSelecionado}"
+                                    HeightRequest="48" />
                         </VerticalStackLayout>
 
-                        <!-- Nível de Dificuldade -->
+                        <!-- Disciplina -->
                         <VerticalStackLayout Spacing="6" Grid.Column="1">
-                            <Label Text="Dificuldade" FontSize="13" TextColor="#a0a0c0" />
-                            <Picker Title=""
-            TitleColor="#6060a0"
-            TextColor="White"
-            BackgroundColor="#1a1a2e"
-            ItemsSource="{Binding ListaNiveisDificuldade}"
-            ItemDisplayBinding="{Binding Nome}"
-            SelectedItem="{Binding NivelDificuldadeSelecionado}"
-            HeightRequest="48" />
+                            <Label Text="Disciplina" FontSize="13" TextColor="#a0a0c0" />
+                            <Picker Title="Selecione"
+                                    TitleColor="#6060a0"
+                                    TextColor="White"
+                                    BackgroundColor="#1a1a2e"
+                                    ItemsSource="{Binding ListaDisciplinas}"
+                                    ItemDisplayBinding="{Binding Nome}"
+                                    SelectedItem="{Binding DisciplinaSelecionada}"
+                                    HeightRequest="48" />
                         </VerticalStackLayout>
 
                     </Grid>
@@ -92,7 +105,6 @@
                 </VerticalStackLayout>
             </Frame>
 
-            <!-- Botões -->
             <!-- Botões -->
             <HorizontalStackLayout Spacing="12" HorizontalOptions="End" Margin="0,4,0,20">
                 <Button Text="📎 Material de Apoio"

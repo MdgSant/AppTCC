@@ -13,12 +13,12 @@ namespace Estudex0._1a.Constants
         public const string Autenticar = $"{Utilizadores}/autenticar";
         public const string Registrar = $"{Utilizadores}/registrar";
         public const string Atividades = $"{BaseUrl}/atividades";
-        public const string NivelDificuldade = $"{BaseUrl}/nivelDificuldade";
+        public const string NivelDificuldade = $"{BaseUrl}/niveldificuldade";
         public const string Utilizadores = $"{BaseUrl}/utilizadores";
         public const string Disciplinas = $"{BaseUrl}/disciplinas";
         public const string AtividadesPergunta = $"{BaseUrl}/atividadesPergunta";
         public const string Duvidas = $"{BaseUrl}/duvidas";
-        public const string NiveisDificuldade = $"{BaseUrl}/nivelDificuldade";
+        //public const string NiveisDificuldade = $"{BaseUrl}/niveldificuldade";
         public const string AtividadesRespostas = $"{BaseUrl}/atividadesrespostas";
         public const string VerificarResposta = $"{BaseUrl}/atividadesrespostas/verificar";
     }

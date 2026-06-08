@@ -9,7 +9,7 @@ namespace Estudex0._1a.Models
     public class Atividade
     {
         [JsonProperty("idAtividade")]
-        public int IdAtividade { get; set; }
+        public int? IdAtividade { get; set; }
 
         [JsonProperty("titulo")]
         public string Titulo { get; set; }
@@ -18,7 +18,13 @@ namespace Estudex0._1a.Models
         public int PontuacaoMaxima { get; set; }
 
         [JsonProperty("idOrientador")]
-        public int IdOrientador { get; set; }
+        public int? IdOrientador { get; set; }
+
+        [JsonProperty("idNivelDificuldade")]
+        public int? IdNivelDificuldade { get; set; }
+
+        [JsonProperty("idDisciplina")]
+        public int? IdDisciplina { get; set; }
 
         [JsonProperty("nivelDificuldade")]
         public NivelDificuldade NivelDificuldade { get; set; }

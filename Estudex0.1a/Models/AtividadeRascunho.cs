@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Estudex0._1a.Models
 {
@@ -10,6 +8,7 @@ namespace Estudex0._1a.Models
         public int PontuacaoMaxima { get; set; }
         public Utilizador Orientador { get; set; }
         public NivelDificuldade NivelDificuldade { get; set; }
+        public Disciplina Disciplina { get; set; }
         public List<AtividadePergunta> Perguntas { get; set; } = new();
     }
 }

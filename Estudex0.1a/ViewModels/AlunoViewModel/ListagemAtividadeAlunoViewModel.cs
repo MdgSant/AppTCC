@@ -30,7 +30,7 @@ namespace Estudex0._1a.ViewModels.AlunoViewModel
 
                 foreach (var a in lista)
                 {
-                    bool jaRespondeu = await aService.VerificarJaRespondeuAsync(idAluno, a.IdAtividade);
+                    bool jaRespondeu = await aService.VerificarJaRespondeuAsync(idAluno, a.IdAtividade ?? 0);
                     Atividades.Add(new AtividadeStatus
                     {
                         Atividade = a,

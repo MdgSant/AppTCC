@@ -15,7 +15,7 @@ public partial class MenuView : ContentPage
         string nome = Preferences.Get("UtilizadorNome", string.Empty);
 
         LabelNome.Text = nome;
-        LabelPerfil.Text = tipo == 1 ? "Professor" : "Aluno";
+        LabelPerfil.Text = tipo == 2 ? "Professor" : "Aluno";
 
         MenuProfessor.IsVisible = tipo == 2;
         MenuAluno.IsVisible = tipo == 1;
@@ -24,7 +24,7 @@ public partial class MenuView : ContentPage
     // Professor
     private async void OnAtividadesClicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("AtividadeView");
+        await Shell.Current.GoToAsync("ListarAtividadeView");
     }
 
     private async void OnDuvidasClicked(object sender, EventArgs e)
