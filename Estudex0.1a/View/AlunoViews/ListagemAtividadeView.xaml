@@ -28,51 +28,60 @@
         </Frame>
 
         <CollectionView Grid.Row="2"
-                        ItemsSource="{Binding Atividades}"
-                        SelectionMode="Single"
-                        SelectionChanged="OnAtividadeSelecionada">
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="1" VerticalItemSpacing="12" />
-            </CollectionView.ItemsLayout>
+                ItemsSource="{Binding Atividades}"
+                SelectionMode="Single"
+                SelectionChanged="OnAtividadeSelecionada">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame BackgroundColor="#2d2b55" CornerRadius="14"
-                           Padding="16" BorderColor="#3d3b6e">
+                   Padding="16" BorderColor="#3d3b6e">
                         <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="8">
 
-                            <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
-                                <Label Grid.Column="0" Text="{Binding Titulo}"
-                                       FontSize="16" FontAttributes="Bold" TextColor="#c084fc" />
+                            <Grid Grid.Row="0" ColumnDefinitions="*,Auto,Auto">
+                                <Label Grid.Column="0"
+                               Text="{Binding Atividade.Titulo}"
+                               FontSize="16" FontAttributes="Bold" TextColor="#c084fc" />
+
+                                <!-- Badge Respondida -->
                                 <Frame Grid.Column="1" CornerRadius="8"
-                                       Padding="8,4" BorderColor="Transparent"
-                                       BackgroundColor="#1a4a1a">
+                               Padding="8,4" BorderColor="Transparent"
+                               BackgroundColor="#1a3a1a"
+                               IsVisible="{Binding JaRespondeu}"
+                               Margin="4,0">
+                                    <Label Text="✓ Feita" FontSize="11" TextColor="#4ade80" />
+                                </Frame>
+
+                                <!-- Badge Dificuldade -->
+                                <Frame Grid.Column="2" CornerRadius="8"
+                               Padding="8,4" BorderColor="Transparent"
+                               BackgroundColor="#1a4a1a">
                                     <Frame.Triggers>
                                         <DataTrigger TargetType="Frame"
-                                            Binding="{Binding NivelDificuldade.Nome}" Value="Fácil">
+                                    Binding="{Binding Atividade.NivelDificuldade.Nome}" Value="Fácil">
                                             <Setter Property="BackgroundColor" Value="#1a3a1a" />
                                         </DataTrigger>
                                         <DataTrigger TargetType="Frame"
-                                            Binding="{Binding NivelDificuldade.Nome}" Value="Médio">
+                                    Binding="{Binding Atividade.NivelDificuldade.Nome}" Value="Médio">
                                             <Setter Property="BackgroundColor" Value="#3a2a0a" />
                                         </DataTrigger>
                                         <DataTrigger TargetType="Frame"
-                                            Binding="{Binding NivelDificuldade.Nome}" Value="Difícil">
+                                    Binding="{Binding Atividade.NivelDificuldade.Nome}" Value="Difícil">
                                             <Setter Property="BackgroundColor" Value="#3a0a0a" />
                                         </DataTrigger>
                                     </Frame.Triggers>
-                                    <Label Text="{Binding NivelDificuldade.Nome}" FontSize="12"
-                                           TextColor="#4ade80">
+                                    <Label Text="{Binding Atividade.NivelDificuldade.Nome}" FontSize="12"
+                                   TextColor="#4ade80">
                                         <Label.Triggers>
                                             <DataTrigger TargetType="Label"
-                                                Binding="{Binding NivelDificuldade.Nome}" Value="Fácil">
+                                        Binding="{Binding Atividade.NivelDificuldade.Nome}" Value="Fácil">
                                                 <Setter Property="TextColor" Value="#4ade80" />
                                             </DataTrigger>
                                             <DataTrigger TargetType="Label"
-                                                Binding="{Binding NivelDificuldade.Nome}" Value="Médio">
+                                        Binding="{Binding Atividade.NivelDificuldade.Nome}" Value="Médio">
                                                 <Setter Property="TextColor" Value="#f59e0b" />
                                             </DataTrigger>
                                             <DataTrigger TargetType="Label"
-                                                Binding="{Binding NivelDificuldade.Nome}" Value="Difícil">
+                                        Binding="{Binding Atividade.NivelDificuldade.Nome}" Value="Difícil">
                                                 <Setter Property="TextColor" Value="#f87171" />
                                             </DataTrigger>
                                         </Label.Triggers>
@@ -84,11 +93,11 @@
 
                             <Grid Grid.Row="2" ColumnDefinitions="*,Auto">
                                 <Label Grid.Column="0"
-                                       Text="{Binding PontuacaoMaxima, StringFormat='⭐ {0} pontos'}"
-                                       FontSize="13" TextColor="#e0e0ff" />
+                               Text="{Binding Atividade.PontuacaoMaxima, StringFormat='⭐ {0} pontos'}"
+                               FontSize="13" TextColor="#e0e0ff" />
                                 <Label Grid.Column="1"
-                                       Text="{Binding DataCriacao, StringFormat='📅 {0:dd/MM/yyyy}'}"
-                                       FontSize="13" TextColor="#a0a0c0" />
+                               Text="{Binding Atividade.DataCriacao, StringFormat='📅 {0:dd/MM/yyyy}'}"
+                               FontSize="13" TextColor="#a0a0c0" />
                             </Grid>
 
                         </Grid>

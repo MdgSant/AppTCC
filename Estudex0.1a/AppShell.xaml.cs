@@ -5,6 +5,7 @@ public partial class AppShell : Shell
     {
         InitializeComponent();
 
+
         #region Rotas Atividade
         Routing.RegisterRoute("ListarAtividadeView",
             typeof(Estudex0._1a.View.ProfessorViews.AtividadeView));
@@ -14,15 +15,19 @@ public partial class AppShell : Shell
             typeof(Estudex0._1a.View.ProfessorViews.InserirPerguntaView));
         Routing.RegisterRoute("DetalhesAtividadeView",
             typeof(Estudex0._1a.View.ProfessorViews.DetalhesAtividadeView));
+        Routing.RegisterRoute("ListagemAtividadeView",
+           typeof(Estudex0._1a.View.AlunoViews.ListagemAtividadeView));
         Routing.RegisterRoute("ResponderAtividadeView",
-            typeof(Estudex0._1a.View.AlunoViews.ResponderAtividadeView));
+            typeof(Estudex0._1a.View.AlunoViews.ListagemAtividadeView));
         #endregion
 
         #region Rotas Duvidas
-        Routing.RegisterRoute("ListarDuvidaView",
+        Routing.RegisterRoute("ListagemDuvidasView",
             typeof(Estudex0._1a.View.ProfessorViews.DuvidaView));
         Routing.RegisterRoute("InserirDuvidaView",
             typeof(Estudex0._1a.View.AlunoViews.InserirDuvidaView));
+        Routing.RegisterRoute("ListagemDuvidasAlunoView",
+            typeof(Estudex0._1a.View.AlunoViews.ListagemDuvidasAlunoView));
         #endregion
     }
 
@@ -31,11 +36,12 @@ public partial class AppShell : Shell
         int tipo = Preferences.Get("UtilizadorTipo", 0);
         string nome = Preferences.Get("UtilizadorNome", string.Empty);
 
-        bool isProfessor = tipo == 1;
-        bool isAluno = tipo == 2;
+        bool isProfessor = tipo == 2;
+        bool isAluno = tipo == 1;
 
         LabelPerfil.Text = isProfessor ? $"Professor | {nome}" : $"Aluno | {nome}";
 
+        FlyoutMenu.IsVisible = true;
         FlyoutProfAtividades.IsVisible = isProfessor;
         FlyoutProfDuvidas.IsVisible = isProfessor;
         FlyoutAlunoAtividades.IsVisible = isAluno;

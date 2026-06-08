@@ -30,5 +30,10 @@ namespace Estudex0._1a.Services.Aluno
         {
             return await _request.PostAsync<AtividadeResposta>(URLsAPI.AtividadesRespostas, resposta, _token);
         }
+        public async Task<bool> VerificarJaRespondeuAsync(int idAluno, int idAtividade)
+        {
+            return await _request.GetAsync<bool>(
+                $"{URLsAPI.VerificarResposta}/{idAluno}/{idAtividade}", _token);
+        }
     }
 }

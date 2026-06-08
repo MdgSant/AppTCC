@@ -7,9 +7,11 @@ namespace Estudex0._1a.Constants
     public class URLsAPI
     {
         //private const string BaseUrl = "apiestudex-b0angcajf4fdgugt.eastus2-01.azurewebsites.net";
-        private const string BaseUrl = "http://10.0.2.2:8080";
-        //private const string BaseUrl = "http://localhost:8080";
+        //private const string BaseUrl = "http://10.0.2.2:8080";
+        private const string BaseUrl = "http://localhost:8080";
 
+        public const string Autenticar = $"{Utilizadores}/autenticar";
+        public const string Registrar = $"{Utilizadores}/registrar";
         public const string Atividades = $"{BaseUrl}/atividades";
         public const string NivelDificuldade = $"{BaseUrl}/nivelDificuldade";
         public const string Utilizadores = $"{BaseUrl}/utilizadores";
@@ -18,5 +20,6 @@ namespace Estudex0._1a.Constants
         public const string Duvidas = $"{BaseUrl}/duvidas";
         public const string NiveisDificuldade = $"{BaseUrl}/nivelDificuldade";
         public const string AtividadesRespostas = $"{BaseUrl}/atividadesrespostas";
+        public const string VerificarResposta = $"{BaseUrl}/atividadesrespostas/verificar";
     }
 }

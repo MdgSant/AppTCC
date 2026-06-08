@@ -34,6 +34,6 @@ namespace Estudex0._1a.Models
         public TipoUltilizador TipoUltilizador { get; set;}
         
         [JsonProperty("idTipoUtilizador")]
-        public int IdTipoUtilizador { get; set; }
+        public int? IdTipoUtilizador { get; set; }
     }
 }

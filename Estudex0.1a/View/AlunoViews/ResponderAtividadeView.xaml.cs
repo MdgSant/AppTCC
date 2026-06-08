@@ -3,7 +3,7 @@ using Estudex0._1a.ViewModels.AlunoViewModel;
 namespace Estudex0._1a.View.AlunoViews;
 
 [QueryProperty(nameof(IdAtividade), "idAtividade")]
-public partial class ResponderAtividadeView : ContentPage
+public partial class ListagemAtividadeView : ContentPage
 {
     private string _idAtividade;
     public string IdAtividade
@@ -17,7 +17,7 @@ public partial class ResponderAtividadeView : ContentPage
         }
     }
 
-    public ResponderAtividadeView()
+    public ListagemAtividadeView()
     {
         InitializeComponent();
         BindingContext = new ResponderAtividadeViewModel();
