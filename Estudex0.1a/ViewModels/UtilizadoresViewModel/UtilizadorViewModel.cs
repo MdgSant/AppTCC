@@ -125,6 +125,15 @@ namespace Estudex0._1a.ViewModels.UtilizadoresViewModel
         {
             try
             {
+                if (string.IsNullOrEmpty(Nome) || string.IsNullOrEmpty(Cpf) ||
+                    string.IsNullOrEmpty(Cidade) || string.IsNullOrEmpty(Uf) ||
+                    string.IsNullOrEmpty(Email) || string.IsNullOrEmpty(Senha) ||
+                    string.IsNullOrEmpty(TipoSelecionado))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Atenção", "Preencha todos os campos!", "Ok");
+                    return;
+                }
+
                 Utilizador u = new Utilizador();
                 u.Nome = Nome;
                 u.CPF = Cpf;

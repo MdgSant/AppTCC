@@ -1,4 +1,5 @@
 ﻿using EstudeX.Services;
+using Estudex0._1a.Constants;
 using Estudex0._1a.Models;
 using Estudex0._1a.Models.Login;
 using System;
@@ -11,7 +12,7 @@ namespace EstudeX.Services;
 public class UtilizadorService : Request
 {
     private readonly Request _request;
-    private const string ApiUrlBase = "http://SEU_IP:8080/utilizadores";
+    private const string ApiUrlBase = URLsAPI.Utilizadores;
     private readonly string _token;
 
     public UtilizadorService(string token = "")
@@ -45,17 +46,15 @@ public class UtilizadorService : Request
         return await _request.DeleteAsync($"{ApiUrlBase}/{id}", _token);
     }
 
-    //CADASTRO
-    public async Task<Utilizador> PostRegistrarUtilizadorAsync(Utilizador u)
-    {
-        string urlComplementar = "/registrar";
-        return await _request.PostAsync<Utilizador>(ApiUrlBase + urlComplementar, u, string.Empty);
-    }
-
-    //LOGIN
+    // LOGIN
     public async Task<LoginResponse> PostAutenticarUtilizadorAsync(LoginRequest u)
     {
-        string urlComplementar = "/autenticar";
-        return await _request.PostAsync<LoginResponse, LoginRequest>(ApiUrlBase + urlComplementar, u, string.Empty);
+        return await _request.PostAsync<LoginResponse, LoginRequest>(URLsAPI.Autenticar, u, string.Empty);
+    }
+
+    // CADASTRO
+    public async Task<Utilizador> PostRegistrarUtilizadorAsync(Utilizador u)
+    {
+        return await _request.PostAsync<Utilizador>(URLsAPI.Registrar, u, string.Empty);
     }
 }

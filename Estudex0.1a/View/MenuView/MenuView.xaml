@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Estudex0._1a.View.MenuView"
+             BackgroundColor="#1a1a2e">
+
+    <VerticalStackLayout Padding="20" Spacing="16">
+
+        <!-- Header usuário -->
+        <Frame BackgroundColor="#2d2b55" CornerRadius="16" Padding="20" BorderColor="#3d3b6e">
+            <VerticalStackLayout Spacing="4">
+                <Label Text="👤" FontSize="36" HorizontalOptions="Center"/>
+                <Label x:Name="LabelNome"
+                       Text=""
+                       FontSize="18" FontAttributes="Bold"
+                       TextColor="#e0e0ff" HorizontalOptions="Center"/>
+                <Label x:Name="LabelPerfil"
+                       Text=""
+                       FontSize="13"
+                       TextColor="#c084fc" HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- Menu Professor -->
+        <VerticalStackLayout x:Name="MenuProfessor" Spacing="10">
+            <Button Text="📋 Atividades"
+                    BackgroundColor="#2d2b55"
+                    TextColor="#e0e0ff"
+                    HorizontalOptions="Fill"
+                    CornerRadius="12"
+                    Clicked="OnAtividadesClicked"/>
+            <Button Text="❓ Dúvidas"
+                    BackgroundColor="#2d2b55"
+                    TextColor="#e0e0ff"
+                    HorizontalOptions="Fill"
+                    CornerRadius="12"
+                    Clicked="OnDuvidasClicked"/>
+        </VerticalStackLayout>
+
+        <!-- Menu Aluno -->
+        <VerticalStackLayout x:Name="MenuAluno" Spacing="10">
+            <Button Text="📋 Atividades"
+                    BackgroundColor="#2d2b55"
+                    TextColor="#e0e0ff"
+                    HorizontalOptions="Fill"
+                    CornerRadius="12"
+                    Clicked="OnAtividadesAlunoClicked"/>
+            <Button Text="❓ Minhas Dúvidas"
+                    BackgroundColor="#2d2b55"
+                    TextColor="#e0e0ff"
+                    HorizontalOptions="Fill"
+                    CornerRadius="12"
+                    Clicked="OnDuvidasAlunoClicked"/>
+            <Button Text="❓ Dúvidas Gerais"
+                    BackgroundColor="#2d2b55"
+                    TextColor="#e0e0ff"
+                    HorizontalOptions="Fill"
+                    CornerRadius="12"
+                    Clicked="OnDuvidasGeraisClicked"/>
+        </VerticalStackLayout>
+
+        <!-- Logout -->
+        <Button Text="🚪 Sair"
+                BackgroundColor="#7c3aed"
+                TextColor="White"
+                HorizontalOptions="Fill"
+                CornerRadius="12"
+                VerticalOptions="EndAndExpand"
+                Clicked="OnLogoutClicked"/>
+
+    </VerticalStackLayout>
+</ContentPage>

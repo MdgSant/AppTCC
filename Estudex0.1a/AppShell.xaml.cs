@@ -5,6 +5,7 @@ public partial class AppShell : Shell
     {
         InitializeComponent();
 
+
         #region Rotas Atividade
         Routing.RegisterRoute("ListarAtividadeView",
             typeof(Estudex0._1a.View.ProfessorViews.AtividadeView));
@@ -36,6 +37,7 @@ public partial class AppShell : Shell
 
         LabelPerfil.Text = isProfessor ? $"Professor | {nome}" : $"Aluno | {nome}";
 
+        FlyoutMenu.IsVisible = true;
         FlyoutProfAtividades.IsVisible = isProfessor;
         FlyoutProfDuvidas.IsVisible = isProfessor;
         FlyoutAlunoAtividades.IsVisible = isAluno;

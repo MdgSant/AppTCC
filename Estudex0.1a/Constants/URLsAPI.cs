@@ -6,9 +6,11 @@ namespace Estudex0._1a.Constants
 {
     public class URLsAPI
     {
-        private const string BaseUrl = "http://10.0.2.2:8080";
-        //private const string BaseUrl = "http://localhost:8080";
+        //private const string BaseUrl = "http://10.0.2.2:8080";
+        private const string BaseUrl = "http://localhost:8080";
 
+        public const string Autenticar = $"{Utilizadores}/autenticar";
+        public const string Registrar = $"{Utilizadores}/registrar";
         public const string Atividades = $"{BaseUrl}/atividades";
         public const string NivelDificuldade = $"{BaseUrl}/nivelDificuldade";
         public const string Utilizadores = $"{BaseUrl}/utilizadores";

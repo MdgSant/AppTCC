@@ -57,14 +57,19 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="View\MenuViews\**" />
+	  <Compile Remove="View\MenuViews\**" />
+	  <EmbeddedResource Remove="View\MenuViews\**" />
+	  <MauiCss Remove="View\MenuViews\**" />
+	  <MauiXaml Remove="View\MenuViews\**" />
+	  <None Remove="View\MenuViews\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="View\MenuView\" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -84,6 +89,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\AlunoViews\ResponderAtividadeView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="View\MenuView\MenuView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="View\ProfessorViews\AtividadeView.xaml">
