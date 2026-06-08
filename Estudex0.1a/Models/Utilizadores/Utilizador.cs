@@ -19,9 +19,17 @@ namespace Estudex0._1a.Models
         
         [JsonProperty("cpf")]
         public string CPF { get; set; } = string.Empty;
+
+        [JsonProperty("cidade")]
         public string Cidade { get; set; } = string.Empty;
+
+        [JsonProperty("uf")]
         public string UF { get; set; } = string.Empty;
+
+        [JsonProperty("foto")]
         public byte[] Foto { get; set; }
+
+        [JsonProperty("senhaHash")]
         public string SenhaHash { get; set; } = string.Empty;
         public TipoUltilizador TipoUltilizador { get; set;}
         

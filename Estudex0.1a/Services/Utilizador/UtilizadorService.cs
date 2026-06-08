@@ -11,7 +11,7 @@ namespace EstudeX.Services;
 public class UtilizadorService : Request
 {
     private readonly Request _request;
-    private const string ApiUrlBase = "http://SEU_IP:8080/utilizadores";
+    private const string ApiUrlBase = "http://localhost:8080/utilizadores";
     private readonly string _token;
 
     public UtilizadorService(string token = "")

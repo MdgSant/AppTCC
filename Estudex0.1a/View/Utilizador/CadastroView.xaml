@@ -55,7 +55,8 @@
                     TextColor="White"
                     CornerRadius="12"
                     HeightRequest="52"
-                    Margin="0,20,0,0"/>
+                    Margin="0,20,0,0"
+                    Clicked="OnRegistrarClicked"/>
 
         </VerticalStackLayout>
     </ScrollView>

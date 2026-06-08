@@ -12,4 +12,9 @@ public partial class CadastroView : ContentPage
 		viewModel = new UtilizadorViewModel();
 		BindingContext = viewModel;
 	}
+		private void OnRegistrarClicked(object sender, EventArgs e)
+	{
+		// Força o foco sair de todos os campos antes de executar o comando
+		this.Focus();
+	}
 }
