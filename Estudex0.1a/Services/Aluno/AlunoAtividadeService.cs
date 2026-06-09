@@ -21,6 +21,12 @@ namespace Estudex0._1a.Services.Aluno
             return await _request.GetAsync<ObservableCollection<Atividade>>(URLsAPI.Atividades, _token);
         }
 
+        public async Task<ObservableCollection<AtividadeResposta>> GetMinhasRespostasAsync(int idAluno)
+        {
+            return await _request.GetAsync<ObservableCollection<AtividadeResposta>>(
+                $"{URLsAPI.AtividadesRespostas}/aluno/{idAluno}", _token);
+        }
+
         public async Task<Atividade> GetAtividadeAsync(int id)
         {
             return await _request.GetAsync<Atividade>($"{URLsAPI.Atividades}/{id}", _token);

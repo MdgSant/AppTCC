@@ -89,6 +89,14 @@
                 </BindableLayout.ItemTemplate>
             </VerticalStackLayout>
 
+            <Button Text="👥 Ver Respostas dos Alunos"
+                BackgroundColor="#3d2b6e"
+                TextColor="#c084fc"
+                CornerRadius="12"
+                FontSize="14"
+                HeightRequest="48"
+                Margin="0,8,0,0"
+                Clicked="OnVerRespostasClicked" />
         </VerticalStackLayout>
     </ScrollView>
     </ContentPage>

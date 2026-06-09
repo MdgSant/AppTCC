@@ -68,14 +68,15 @@ namespace Estudex0._1a.ViewModels.AlunoViewModel
             if (Atividade?.Perguntas == null || Atividade.Perguntas.Count == 0)
                 return 0;
 
-            int acertos = 0;
-            foreach (var pergunta in PerguntasComResposta)
-            {
-                if (pergunta.OpcaoSelecionada != null && pergunta.OpcaoSelecionada.Correta)
-                    acertos++;
-            }
+            int totalPerguntas = Atividade.Perguntas.Count;
+            int acertos = PerguntasComResposta.Count(p => p.OpcaoSelecionada != null && p.OpcaoSelecionada.Correta);
 
-            return (float)acertos / Atividade.Perguntas.Count * Atividade.PontuacaoMaxima;
+            // Cada pergunta vale PontuacaoMaxima / totalPerguntas
+            float valorPorPergunta = (float)Atividade.PontuacaoMaxima / totalPerguntas;
+            float pontuacao = acertos * valorPorPergunta;
+
+            // Arredonda para 1 casa decimal
+            return (float)Math.Round(pontuacao, 1);
         }
 
         private async Task EnviarResposta()

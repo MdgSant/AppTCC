@@ -64,5 +64,10 @@
             ContentTemplate="{DataTemplate aluno:ListagemDuvidasAlunoView}"
             Route="ListagemDuvidasAlunoView" />
     </FlyoutItem>
+    <FlyoutItem x:Name="FlyoutAlunoRespostas" Title="[Aluno] Minhas Respostas">
+        <ShellContent
+        ContentTemplate="{DataTemplate aluno:MinhasRespostasView}"
+        Route="MinhasRespostasView" />
+    </FlyoutItem>
 
 </Shell>

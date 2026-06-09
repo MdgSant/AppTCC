@@ -17,6 +17,14 @@ public partial class DetalhesAtividadeView : ContentPage
         }
     }
 
+    private async void OnVerRespostasClicked(object sender, EventArgs e)
+    {
+        var vm = BindingContext as DetalhesAtividadeViewModel;
+        if (vm?.Atividade != null)
+            await Shell.Current.GoToAsync(
+                $"RespostasAtividadeView?idAtividade={vm.Atividade.IdAtividade}");
+    }
+
     public DetalhesAtividadeView()
     {
         InitializeComponent();

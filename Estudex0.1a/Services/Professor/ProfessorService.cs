@@ -24,6 +24,12 @@ namespace Estudex0._1a.Services.Professor
             return await _request.GetAsync<ObservableCollection<Disciplina>>(URLsAPI.Disciplinas, _token);
         }
 
+        public async Task<ObservableCollection<AtividadeResposta>> GetRespostasPorAtividadeAsync(int idAtividade)
+        {
+            return await _request.GetAsync<ObservableCollection<AtividadeResposta>>(
+                $"{URLsAPI.AtividadesRespostas}/atividade/{idAtividade}", _token);
+        }
+
         private string _token;
         public ProfessorService(string token)
         {

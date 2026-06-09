@@ -157,13 +157,13 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
         {
             if (!Validar()) return;
 
-            rascunho.Perguntas.Add(MontarPerguntaAtual()); // adiciona a pergunta atual
+            rascunho.Perguntas.Add(MontarPerguntaAtual());
 
             if (questaoAtual >= maxQuestoes)
             {
                 await Application.Current.MainPage
                     .DisplayAlert("Aviso", "Limite de 10 questões atingido!", "Ok");
-                await FinalizarAtividade(adicionarAtual: false); // não adiciona de novo
+                await FinalizarAtividade();
                 return;
             }
 
@@ -172,12 +172,12 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
             LimparFormulario();
         }
 
-        private async Task FinalizarAtividade(bool adicionarAtual = true)
+        private async Task FinalizarAtividade()
         {
             if (!Validar()) return;
 
-            if (adicionarAtual)
-                rascunho.Perguntas.Add(MontarPerguntaAtual()); // só adiciona se veio direto do botão
+            if (questaoAtual <= rascunho.Perguntas.Count == false)
+                rascunho.Perguntas.Add(MontarPerguntaAtual());
 
             try
             {
@@ -233,4 +233,4 @@ namespace Estudex0._1a.ViewModels.ProfessorViewModel
             set { correta = value; OnPropertyChanged(); }
         }
     }
-}mbox 
+}
