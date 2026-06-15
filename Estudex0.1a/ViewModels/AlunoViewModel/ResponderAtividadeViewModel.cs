@@ -92,9 +92,10 @@ namespace Estudex0._1a.ViewModels.AlunoViewModel
             {
                 float pontuacao = CalcularPontuacao();
 
+                // Salva no banco
                 AtividadeResposta resposta = new AtividadeResposta
                 {
-                    Aluno = new Utilizador { IdUtilizador = 1 }, // temporário até ter login
+                    Aluno = new Utilizador { IdUtilizador = Preferences.Get("UsuarioId", 1) },
                     Atividade = new Atividade { IdAtividade = Atividade.IdAtividade },
                     MomentoInicio = momentoInicio.ToString("yyyy-MM-ddTHH:mm:ss"),
                     MomentoFim = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"),
@@ -103,12 +104,28 @@ namespace Estudex0._1a.ViewModels.AlunoViewModel
 
                 await aService.PostRespostaAsync(resposta);
 
-                await Application.Current.MainPage
-                    .DisplayAlert("Resultado",
-                        $"Atividade concluída!\nPontuação: {pontuacao:F1} / {Atividade.PontuacaoMaxima}",
-                        "Ok");
+                // Monta o resultado em memória
+                var resultado = new ResultadoAtividade
+                {
+                    TituloAtividade = Atividade.Titulo,
+                    TotalPerguntas = PerguntasComResposta.Count,
+                    TotalAcertos = PerguntasComResposta.Count(p => p.OpcaoSelecionada.Correta),
+                    Pontuacao = pontuacao,
+                    PontuacaoMaxima = Atividade.PontuacaoMaxima,
+                    Perguntas = PerguntasComResposta.Select(p => new ResultadoPergunta
+                    {
+                        Enunciado = p.Pergunta.Enunciado,
+                        OpcaoEscolhida = p.OpcaoSelecionada?.Descricao ?? "",
+                        OpcaoCorreta = p.Pergunta.Opcoes.FirstOrDefault(o => o.Correta)?.Descricao ?? "",
+                        Acertou = p.OpcaoSelecionada?.Correta ?? false
+                    }).ToList()
+                };
 
-                await Shell.Current.GoToAsync("..");
+                // Passa via navegação serializado
+                var json = Uri.EscapeDataString(
+                    System.Text.Json.JsonSerializer.Serialize(resultado));
+
+                await Shell.Current.GoToAsync($"ResultadoAtividadeView?resultado={json}");
             }
             catch (Exception ex)
             {

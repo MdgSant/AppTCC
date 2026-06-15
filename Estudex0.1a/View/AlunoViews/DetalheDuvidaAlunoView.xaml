@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Estudex0._1a.View.AlunoViews.DetalheDuvidaAlunoView"
+             Title="Detalhe da Dúvida"
+             BackgroundColor="#1a1a2e">
+    <Grid RowDefinitions="Auto,Auto,*" Padding="20" RowSpacing="16">
+
+        <!-- Dúvida -->
+        <Frame Grid.Row="0" BackgroundColor="#2d2b55" CornerRadius="14"
+               Padding="16" BorderColor="#7c3aed">
+            <VerticalStackLayout Spacing="8">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Grid.Column="0"
+                           Text="{Binding Duvida.Titulo}"
+                           FontSize="18" FontAttributes="Bold" TextColor="#c084fc" />
+                    <Frame Grid.Column="1" CornerRadius="8" Padding="8,4"
+                           BorderColor="Transparent" BackgroundColor="#3a2a0a">
+                        <Frame.Triggers>
+                            <DataTrigger TargetType="Frame"
+                                         Binding="{Binding Duvida.StatusDuvida}"
+                                         Value="Respondida">
+                                <Setter Property="BackgroundColor" Value="#1a3a1a" />
+                            </DataTrigger>
+                        </Frame.Triggers>
+                        <Label Text="{Binding Duvida.StatusDuvida}" FontSize="12"
+                               TextColor="#f59e0b">
+                            <Label.Triggers>
+                                <DataTrigger TargetType="Label"
+                                             Binding="{Binding Duvida.StatusDuvida}"
+                                             Value="Respondida">
+                                    <Setter Property="TextColor" Value="#4ade80" />
+                                </DataTrigger>
+                            </Label.Triggers>
+                        </Label>
+                    </Frame>
+                </Grid>
+                <Label Text="{Binding Duvida.Disciplina.Nome}"
+                       FontSize="12" TextColor="#a0a0c0" />
+                <Label Text="{Binding Duvida.Descricao}"
+                       FontSize="14" TextColor="#e0e0ff" />
+                <Label Text="{Binding Duvida.Momento, StringFormat='📅 {0:dd/MM/yyyy}'}"
+                       FontSize="12" TextColor="#a0a0c0" HorizontalOptions="End" />
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- Header respostas -->
+        <Label Grid.Row="1" Text="💬 Respostas"
+               FontSize="16" FontAttributes="Bold" TextColor="#c084fc" />
+
+        <!-- Lista de respostas -->
+        <CollectionView Grid.Row="2" ItemsSource="{Binding Respostas}">
+            <CollectionView.EmptyView>
+                <Label Text="Nenhuma resposta ainda."
+                       TextColor="#a0a0c0" FontSize="14"
+                       HorizontalOptions="Center" Margin="0,20" />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="#2d2b55" CornerRadius="14"
+                           Padding="16" BorderColor="#3d3b6e" Margin="0,0,0,12">
+                        <VerticalStackLayout Spacing="8">
+                            <Label Text="{Binding Utilizador.Nome}"
+                                   FontSize="13" FontAttributes="Bold"
+                                   TextColor="#c084fc" />
+                            <Label Text="{Binding ConteudoResposta}"
+                                   FontSize="14" TextColor="#e0e0ff" />
+                            <Label Text="{Binding Momento, StringFormat='📅 {0:dd/MM/yyyy}'}"
+                                   FontSize="11" TextColor="#a0a0c0"
+                                   HorizontalOptions="End" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>

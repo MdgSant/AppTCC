@@ -33,9 +33,9 @@ namespace Estudex0._1a.Services.Professor
             return await _request.GetAsync<Duvida>($"{URLsAPI.Duvidas}/professor/{idDuvida}", _token);
         }
 
-        public async Task<Duvida> PostDuvidaAsync(Duvida d)
+        public async Task<RespostaDuvida> PostRespostaAsync(RespostaDuvida resposta)
         {
-            return await _request.PostAsync<Duvida>(URLsAPI.Duvidas, d, _token);
+            return await _request.PostAsync<RespostaDuvida>(URLsAPI.RespostasDuvidas, resposta, _token);
         }
 
         public async Task<int> PutDuvidaAsync(Duvida d)

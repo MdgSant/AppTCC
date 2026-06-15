@@ -1,14 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Newtonsoft.Json;
 
 namespace Estudex0._1a.Models;
 
 public class RespostaDuvida
 {
-    public int IdDuvida { get; set; }
-    public DateTime Momento { get; set; }
+    [JsonProperty("idRespostaDuvida")]
+    public int? IdRespostaDuvida { get; set; }
+
+    [JsonProperty("conteudoResposta")]
     public string ConteudoResposta { get; set; } = string.Empty;
-    public int? IdUtilizador { get; set; }       
-    public Utilizador? Utilizador { get; set; }  
+
+    [JsonProperty("momento")]
+    public string Momento { get; set; } = string.Empty;
+
+    [JsonProperty("idUtilizador")]
+    public int? IdUtilizador { get; set; }
+
+    [JsonProperty("utilizador")]
+    public Utilizador? Utilizador { get; set; }
+
+    [JsonProperty("idDuvida")]
+    public int? IdDuvida { get; set; }
+
+    [JsonProperty("duvida")]
+    public Duvida? Duvida { get; set; }
 }

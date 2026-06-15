@@ -1,7 +1,5 @@
 using Estudex0._1a.Models;
-using Estudex0._1a.Services.Aluno;
 using Estudex0._1a.ViewModels.AlunoViewModel;
-using Estudex0._1a.ViewModels.ProfessorViewModel;
 
 namespace Estudex0._1a.View.AlunoViews;
 
@@ -18,7 +16,7 @@ public partial class ListagemAtividadeAlunoView : ContentPage
         base.OnAppearing();
         var vm = BindingContext as ListagemAtividadeAlunoViewModel;
         if (vm != null)
-            await vm.ObterAtividades();
+            await vm.InicializarAsync();
     }
 
     private async void OnAtividadeSelecionada(object sender, SelectionChangedEventArgs e)
@@ -37,5 +35,4 @@ public partial class ListagemAtividadeAlunoView : ContentPage
                 $"ResponderAtividadeView?idAtividade={item.Atividade.IdAtividade}");
         }
     }
-
 }

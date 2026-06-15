@@ -57,7 +57,8 @@
         </Grid>
 
         <!-- Lista -->
-        <CollectionView Grid.Row="3" ItemsSource="{Binding Duvidas}">
+        <CollectionView Grid.Row="3" ItemsSource="{Binding Duvidas}"
+                        SelectionMode="Single" SelectionChanged="OnDuvidaSelecionada">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame BackgroundColor="#2d2b55" CornerRadius="14"

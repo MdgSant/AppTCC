@@ -32,6 +32,12 @@ namespace Estudex0._1a.Services.Aluno
             return await _request.GetAsync<Atividade>($"{URLsAPI.Atividades}/{id}", _token);
         }
 
+        public async Task<PaginaResposta<Atividade>> GetAtividadesPaginadasAsync(int pagina, int tamanho = 10)
+        {
+            return await _request.GetAsync<PaginaResposta<Atividade>>(
+                $"{URLsAPI.Atividades}?page={pagina}&size={tamanho}", _token);
+        }
+
         public async Task<AtividadeResposta> PostRespostaAsync(AtividadeResposta resposta)
         {
             return await _request.PostAsync<AtividadeResposta>(URLsAPI.AtividadesRespostas, resposta, _token);

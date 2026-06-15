@@ -23,6 +23,8 @@ public partial class AppShell : Shell
             typeof(Estudex0._1a.View.ProfessorViews.RespostasAtividadeView));
         Routing.RegisterRoute("MinhasRespostasView",
             typeof(Estudex0._1a.View.AlunoViews.MinhasRespostasView));
+        Routing.RegisterRoute("ResultadoAtividadeView",
+            typeof(Estudex0._1a.View.AlunoViews.ResultadoAtividadeView));
         #endregion
 
         #region Rotas Duvidas
@@ -32,6 +34,10 @@ public partial class AppShell : Shell
             typeof(Estudex0._1a.View.AlunoViews.InserirDuvidaView));
         Routing.RegisterRoute("ListagemDuvidasAlunoView",
             typeof(Estudex0._1a.View.AlunoViews.ListagemDuvidasAlunoView));
+        Routing.RegisterRoute("DetalheDuvidaAlunoView",
+            typeof(Estudex0._1a.View.AlunoViews.DetalheDuvidaAlunoView));
+        Routing.RegisterRoute("DetalheDuvidaProfessorView",
+            typeof(Estudex0._1a.View.ProfessorViews.DetalheDuvidaProfessorView));
         #endregion
     }
 

@@ -59,6 +59,12 @@ namespace Estudex0._1a.Services.Professor
             return await _request.GetAsync<Atividade>(url, _token);
         }
 
+        public async Task<PaginaResposta<Atividade>> GetAtividadesPaginadasAsync(int pagina, int tamanho = 10)
+        {
+            return await _request.GetAsync<PaginaResposta<Atividade>>(
+                $"{URLsAPI.Atividades}?page={pagina}&size={tamanho}", _token);
+        }
+
         public async Task<int> PutAtividadeAsync(Atividade a)
         {
             return await _request.PutAsync(URLsAPI.Atividades, a, _token);
@@ -69,5 +75,6 @@ namespace Estudex0._1a.Services.Professor
             string url = $"{URLsAPI.Atividades}/{atividadeId}";
             return await _request.DeleteAsync(url, _token);
         }
+
     }
 }

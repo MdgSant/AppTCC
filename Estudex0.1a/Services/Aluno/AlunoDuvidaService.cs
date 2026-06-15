@@ -44,5 +44,11 @@ namespace Estudex0._1a.Services.Aluno
         {
             return await _request.GetAsync<ObservableCollection<Duvida>>($"{URLsAPI.Duvidas}/aluno/{idUtilizador}", _token);
         }
+
+        public async Task<ObservableCollection<RespostaDuvida>> GetRespostasDuvidaAsync(int idDuvida)
+        {
+            return await _request.GetAsync<ObservableCollection<RespostaDuvida>>(
+                $"{URLsAPI.RespostasDuvidas}/duvida/{idDuvida}", _token);
+        }
     }
 }
