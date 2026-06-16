@@ -3,101 +3,187 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Estudex0._1a.View.ProfessorViews.RespostasAtividadeView"
              Title="Respostas dos Alunos"
-             BackgroundColor="#1a1a2e">
-    <Grid RowDefinitions="Auto,Auto,*" Padding="20" RowSpacing="16">
+             BackgroundColor="#121212">
 
-        <!-- Header -->
-        <Frame Grid.Row="0" BackgroundColor="#2d2b55" CornerRadius="14"
-               Padding="16" BorderColor="#7c3aed">
-            <VerticalStackLayout Spacing="4">
-                <Label Text="{Binding Atividade.Titulo}"
-                       FontSize="20" FontAttributes="Bold" TextColor="#c084fc" />
-                <HorizontalStackLayout Spacing="10">
-                    <Label Text="{Binding Atividade.NivelDificuldade.Nome}"
-                           FontSize="13" TextColor="#a0a0c0" />
-                    <Label Text="•" TextColor="#3d3b6e" />
-                    <Label Text="{Binding Atividade.PontuacaoMaxima, StringFormat='⭐ {0} pts'}"
-                           FontSize="13" TextColor="#a0a0c0" />
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
-        </Frame>
+    <ContentPage.Resources>
+        <LinearGradientBrush x:Key="PrimaryGradient" EndPoint="1,0">
+            <GradientStop Color="#BB86FC" Offset="0" />
+            <GradientStop Color="#a21fa2" Offset="1" />
+        </LinearGradientBrush>
 
-        <!-- Cards Métricas -->
-        <Grid Grid.Row="1" ColumnDefinitions="*,*" ColumnSpacing="12">
-            <Frame Grid.Column="0" BackgroundColor="#2d2b55" CornerRadius="12"
-                   Padding="12" BorderColor="#3d3b6e">
-                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
-                    <Label Text="👥" FontSize="20" HorizontalOptions="Center" />
-                    <Label Text="Responderam" FontSize="11" TextColor="#a0a0c0"
-                           HorizontalOptions="Center" />
-                    <Label Text="{Binding TotalRespostas}" FontSize="22"
-                           FontAttributes="Bold" TextColor="#c084fc"
-                           HorizontalOptions="Center" />
-                </VerticalStackLayout>
-            </Frame>
-            <Frame Grid.Column="1" BackgroundColor="#2d2b55" CornerRadius="12"
-                   Padding="12" BorderColor="#3d3b6e">
-                <VerticalStackLayout Spacing="4" HorizontalOptions="Center">
-                    <Label Text="📊" FontSize="20" HorizontalOptions="Center" />
-                    <Label Text="Média" FontSize="11" TextColor="#a0a0c0"
-                           HorizontalOptions="Center" />
-                    <Label Text="{Binding MediaPontuacao, StringFormat='{0:F1}'}"
-                           FontSize="22" FontAttributes="Bold" TextColor="#4ade80"
-                           HorizontalOptions="Center" />
-                </VerticalStackLayout>
-            </Frame>
-        </Grid>
+        <Style TargetType="Frame" x:Key="MetricCard">
+            <Setter Property="BackgroundColor" Value="#1E1E1E"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="HasShadow" Value="True"/>
+        </Style>
 
-        <!-- Lista de Respostas -->
-        <CollectionView Grid.Row="2" ItemsSource="{Binding Respostas}">
-            <CollectionView.EmptyView>
-                <Label Text="Nenhum aluno respondeu ainda."
-                       TextColor="#a0a0c0" HorizontalOptions="Center"
-                       Margin="0,20" />
-            </CollectionView.EmptyView>
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame BackgroundColor="#2d2b55" CornerRadius="14"
-                           Padding="16" BorderColor="#3d3b6e" Margin="0,0,0,12">
-                        <Grid RowDefinitions="Auto,Auto" RowSpacing="8">
+        <Style TargetType="Frame" x:Key="RespostaCard">
+            <Setter Property="BackgroundColor" Value="#1E1E1E"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="HasShadow" Value="True"/>
+        </Style>
+    </ContentPage.Resources>
 
-                            <!-- Nome + Pontuação -->
-                            <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
-                                <VerticalStackLayout Grid.Column="0" Spacing="2">
-                                    <Label Text="{Binding Aluno.Nome}"
-                                           FontSize="15" FontAttributes="Bold"
-                                           TextColor="#e0e0ff" />
-                                    <Label Text="{Binding Aluno.Serie.NomeSerie}"
-                                           FontSize="12" TextColor="#a0a0c0" />
-                                </VerticalStackLayout>
+    <Grid>
+        <Grid BackgroundColor="#121212"/>
 
-                                <Frame Grid.Column="1" CornerRadius="10"
-                                       Padding="12,6" BorderColor="Transparent"
-                                       BackgroundColor="#1a3a1a">
-                                    <Label Text="{Binding Pontuacao, StringFormat='⭐ {0:F1}'}"
-                                           FontSize="15" FontAttributes="Bold"
-                                           TextColor="#4ade80" />
-                                </Frame>
-                            </Grid>
+        <!-- Círculos Decorativos -->
+        <Ellipse Fill="#20BB86FC" WidthRequest="300" HeightRequest="300"
+                 HorizontalOptions="Start" VerticalOptions="Start"
+                 Margin="-150,-150,0,0"/>
+        <Ellipse Fill="#20a21fa2" WidthRequest="250" HeightRequest="250"
+                 HorizontalOptions="End" VerticalOptions="End"
+                 Margin="0,0,-100,-100"/>
 
-                            <BoxView Grid.Row="1" HeightRequest="0.5" BackgroundColor="#3d3b6e" />
+        <ScrollView>
+            <VerticalStackLayout Spacing="20" Padding="20">
 
-                            <!-- Tempo -->
-                            <Grid Grid.Row="1" ColumnDefinitions="*,*">
-                                <Label Grid.Column="0"
-                                       Text="{Binding MomentoInicio, StringFormat='▶ {0:dd/MM HH:mm}'}"
-                                       FontSize="12" TextColor="#a0a0c0" />
-                                <Label Grid.Column="1"
-                                       Text="{Binding MomentoFim, StringFormat='⏹ {0:dd/MM HH:mm}'}"
-                                       FontSize="12" TextColor="#a0a0c0"
-                                       HorizontalOptions="End" />
-                            </Grid>
+                <!-- Header com informações da Atividade -->
+                <Frame BackgroundColor="#1E1E1E" CornerRadius="16" Padding="20" HasShadow="True">
+                    <VerticalStackLayout Spacing="8">
+                        <HorizontalStackLayout Spacing="10">
+                            <Label Text="📋" FontSize="24" TextColor="#BB86FC"/>
+                            <Label Text="{Binding Atividade.Titulo}"
+                                   FontSize="18" FontAttributes="Bold" TextColor="#E0E0E0"/>
+                        </HorizontalStackLayout>
 
-                        </Grid>
+                        <HorizontalStackLayout Spacing="15">
+                            <HorizontalStackLayout Spacing="5">
+                                <Label Text="⭐" FontSize="12"/>
+                                <Label Text="Nível:" FontSize="12" TextColor="#9E9E9E"/>
+                                <Label Text="{Binding Atividade.NivelDificuldade.Nome}"
+                                       FontSize="12" FontAttributes="Bold" TextColor="#a21fa2"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="5">
+                                <Label Text="🏆" FontSize="12"/>
+                                <Label Text="Pontuação:" FontSize="12" TextColor="#9E9E9E"/>
+                                <Label Text="{Binding Atividade.PontuacaoMaxima, StringFormat='{0} pts'}"
+                                       FontSize="12" FontAttributes="Bold" TextColor="#BB86FC"/>
+                            </HorizontalStackLayout>
+                        </HorizontalStackLayout>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- CARDS MÉTRICAS -->
+                <HorizontalStackLayout Spacing="12" HorizontalOptions="Center">
+
+                    <Frame Style="{StaticResource MetricCard}" WidthRequest="140">
+                        <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                            <Label Text="👥" FontSize="24" HorizontalOptions="Center"/>
+                            <Label Text="RESPONDERAM" FontSize="10" TextColor="#9E9E9E" FontAttributes="Bold"/>
+                            <Label Text="{Binding TotalRespostas}" FontSize="28" FontAttributes="Bold" TextColor="#BB86FC" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
                     </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
 
+                    <Frame Style="{StaticResource MetricCard}" WidthRequest="140">
+                        <VerticalStackLayout Spacing="5" HorizontalOptions="Center">
+                            <Label Text="📊" FontSize="24" HorizontalOptions="Center"/>
+                            <Label Text="MÉDIA" FontSize="10" TextColor="#9E9E9E" FontAttributes="Bold"/>
+                            <Label Text="{Binding MediaPontuacao, StringFormat='{0:F1}'}" 
+                                   FontSize="28" FontAttributes="Bold" TextColor="#00E676" HorizontalOptions="Center"/>
+                        </VerticalStackLayout>
+                    </Frame>
+                </HorizontalStackLayout>
+
+                <!-- TÍTULO DA LISTA -->
+                <Label Text="📝 RESPOSTAS DOS ALUNOS" 
+                       FontSize="13" FontAttributes="Bold"
+                       TextColor="#BB86FC" Margin="0,5,0,5"/>
+
+                <!-- LISTA DE RESPOSTAS -->
+                <CollectionView ItemsSource="{Binding Respostas}">
+                    <CollectionView.EmptyView>
+                        <Frame BackgroundColor="#1E1E1E" CornerRadius="16" Padding="40" HasShadow="True">
+                            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                                <Label Text="📭" FontSize="40" HorizontalOptions="Center"/>
+                                <Label Text="Nenhum aluno respondeu ainda." 
+                                       FontSize="13" TextColor="#9E9E9E" HorizontalOptions="Center"/>
+                            </VerticalStackLayout>
+                        </Frame>
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Style="{StaticResource RespostaCard}">
+                                <VerticalStackLayout Spacing="12">
+
+                                    <!-- Nome do Aluno + Pontuação -->
+                                    <Grid ColumnDefinitions="Auto,*,Auto">
+                                        <Grid Grid.Column="0" WidthRequest="40" HeightRequest="40">
+                                            <Ellipse Fill="#BB86FC20"/>
+                                            <Label Text="👨‍🎓" FontSize="18" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        </Grid>
+
+                                        <VerticalStackLayout Grid.Column="1" Spacing="2" Margin="10,0,0,0">
+                                            <Label Text="{Binding Aluno.Nome}"
+                                                   FontSize="15" FontAttributes="Bold" TextColor="#E0E0E0"/>
+                                            <Label Text="{Binding Aluno.Serie.NomeSerie}"
+                                                   FontSize="11" TextColor="#a21fa2"/>
+                                        </VerticalStackLayout>
+
+                                        <Frame Grid.Column="2" CornerRadius="10" Padding="10,4" HasShadow="False"
+                                               BackgroundColor="#00E67620" HorizontalOptions="End" VerticalOptions="Center">
+                                            <Label Text="{Binding Pontuacao, StringFormat='⭐ {0:F1} pts'}"
+                                                   FontSize="13" FontAttributes="Bold" TextColor="#00E676"/>
+                                        </Frame>
+                                    </Grid>
+
+                                    <!-- Separador -->
+                                    <BoxView HeightRequest="1" BackgroundColor="#2A2A2A"/>
+
+                                    <!-- Datas de Início e Fim -->
+                                    <HorizontalStackLayout Spacing="15">
+                                        <HorizontalStackLayout Spacing="4">
+                                            <Label Text="▶" FontSize="10" TextColor="#6B6B6B"/>
+                                            <Label Text="Início:" FontSize="10" TextColor="#9E9E9E"/>
+                                            <Label Text="{Binding MomentoInicio, StringFormat='{0:dd/MM/yyyy HH:mm}'}" 
+                                                   FontSize="10" TextColor="#B0B0B0"/>
+                                        </HorizontalStackLayout>
+
+                                        <HorizontalStackLayout Spacing="4">
+                                            <Label Text="⏹" FontSize="10" TextColor="#6B6B6B"/>
+                                            <Label Text="Entrega:" FontSize="10" TextColor="#9E9E9E"/>
+                                            <Label Text="{Binding MomentoFim, StringFormat='{0:dd/MM/yyyy HH:mm}'}" 
+                                                   FontSize="10" TextColor="#B0B0B0"/>
+                                        </HorizontalStackLayout>
+                                    </HorizontalStackLayout>
+
+                                    <!-- Botão Ver Detalhes -->
+                                    <Button Text="👁️ VER RESPOSTA"
+                                            BackgroundColor="#2A2A2A"
+                                            TextColor="#BB86FC"
+                                            CornerRadius="10"
+                                            FontSize="11"
+                                            FontAttributes="Bold"
+                                            HeightRequest="32"
+                                            HorizontalOptions="End"
+                                            WidthRequest="120">
+                                        <Button.Triggers>
+                                            <DataTrigger TargetType="Button"
+                                                         Binding="{Binding IsBusy}"
+                                                         Value="True">
+                                                <Setter Property="IsEnabled" Value="False"/>
+                                            </DataTrigger>
+                                        </Button.Triggers>
+                                    </Button>
+
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <!-- LOADING -->
+                <ActivityIndicator IsVisible="{Binding IsBusy}"
+                                   IsRunning="{Binding IsBusy}"
+                                   Color="#BB86FC"
+                                   HeightRequest="40"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
     </Grid>
 </ContentPage>

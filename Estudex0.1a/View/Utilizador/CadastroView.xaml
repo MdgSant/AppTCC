@@ -3,61 +3,233 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Estudex0._1a.View.Utilizador.CadastroView"
              Title="Cadastro"
-             BackgroundColor="#1a1a2e">
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="10">
+             BackgroundColor="#121212"
+             Shell.NavBarIsVisible="False">
 
-            <Label Text="Novo Cadastro"
-                   FontSize="24" FontAttributes="Bold"
-                   TextColor="#c084fc" Margin="0,20,0,10"/>
+    <ContentPage.Resources>
+        <LinearGradientBrush x:Key="PrimaryGradient" EndPoint="1,0">
+            <GradientStop Color="#BB86FC" Offset="0" />
+            <GradientStop Color="#a21fa2" Offset="1" />
+        </LinearGradientBrush>
 
-            <Entry Placeholder="Nome completo" Text="{Binding Nome}"
-                   PlaceholderColor="#a0a0c0" TextColor="#e0e0ff"
-                   BackgroundColor="#2d2b55" Margin="0,5"/>
+        <Style TargetType="Frame" x:Key="InputFrame">
+            <Setter Property="BackgroundColor" Value="#2A2A2A"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HasShadow" Value="False"/>
+        </Style>
 
-            <Entry Placeholder="CPF (000.000.000-00)" Text="{Binding Cpf}"
-                   PlaceholderColor="#a0a0c0" TextColor="#e0e0ff"
-                   BackgroundColor="#2d2b55" Margin="0,5"
-                   Keyboard="Numeric"/>
+        <Style TargetType="Frame" x:Key="CardStyle">
+            <Setter Property="BackgroundColor" Value="#1E1E1E"/>
+            <Setter Property="CornerRadius" Value="24"/>
+            <Setter Property="Padding" Value="25"/>
+            <Setter Property="HasShadow" Value="True"/>
+        </Style>
+    </ContentPage.Resources>
 
-            <Entry Placeholder="Cidade" Text="{Binding Cidade}"
-                   PlaceholderColor="#a0a0c0" TextColor="#e0e0ff"
-                   BackgroundColor="#2d2b55" Margin="0,5"/>
+    <Grid>
+        <!-- Fundo Escuro -->
+        <Grid BackgroundColor="#121212"/>
 
-            <Entry Placeholder="UF (ex: SP)" Text="{Binding Uf}"
-                   PlaceholderColor="#a0a0c0" TextColor="#e0e0ff"
-                   BackgroundColor="#2d2b55" Margin="0,5"
-                   MaxLength="2"/>
+        <!-- Círculos Decorativos -->
+        <Ellipse Fill="#20BB86FC" WidthRequest="350" HeightRequest="350"
+                 HorizontalOptions="Start" VerticalOptions="Start"
+                 Margin="-200,-200,0,0"/>
+        <Ellipse Fill="#20a21fa2" WidthRequest="250" HeightRequest="250"
+                 HorizontalOptions="End" VerticalOptions="End"
+                 Margin="0,0,-120,-120"/>
+        <Ellipse Fill="#10BB86FC" WidthRequest="150" HeightRequest="150"
+                 HorizontalOptions="Center" VerticalOptions="Center"
+                 Margin="0,-100,0,0"/>
 
-            <Entry Placeholder="E-mail" Text="{Binding Email}"
-                   PlaceholderColor="#a0a0c0" TextColor="#e0e0ff"
-                   BackgroundColor="#2d2b55" Margin="0,5"
-                   Keyboard="Email"/>
+        <ScrollView>
+            <VerticalStackLayout Spacing="20" Padding="30" VerticalOptions="Center">
 
-            <Entry Placeholder="Senha" Text="{Binding Senha}" IsPassword="True"
-                   PlaceholderColor="#a0a0c0" TextColor="#e0e0ff"
-                   BackgroundColor="#2d2b55" Margin="0,5"/>
+                <!-- Logo/Título -->
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="10" Margin="0,40,0,10">
+                    <Label Text="📚" FontSize="40" TextColor="#BB86FC"/>
+                    <Label Text="ESTUDEX" 
+                           FontSize="32" FontAttributes="Bold" 
+                           TextColor="#a21fa2"/>
+                </HorizontalStackLayout>
 
-            <Label Text="Tipo de usuário" TextColor="#a0a0c0" Margin="0,10,0,0"/>
-            <Picker Title="Selecione o perfil"
-                    SelectedItem="{Binding TipoSelecionado}"
-                    TextColor="#e0e0ff"
-                    BackgroundColor="#2d2b55">
-                <Picker.Items>
-                    <x:String>Aluno</x:String>
-                    <x:String>Professor</x:String>
-                </Picker.Items>
-            </Picker>
+                <!-- Subtítulo -->
+                <Label Text="Crie sua conta e comece a estudar" 
+                       FontSize="14" 
+                       TextColor="#9E9E9E"
+                       HorizontalOptions="Center"
+                       Margin="0,0,0,20"/>
 
-            <Button Text="Registrar"
-                    Command="{Binding RegistrarCommand}"
-                    BackgroundColor="#7c3aed"
-                    TextColor="White"
-                    CornerRadius="12"
-                    HeightRequest="52"
-                    Margin="0,20,0,0"
-                    Clicked="OnRegistrarClicked"/>
+                <!-- Card de Cadastro -->
+                <Frame Style="{StaticResource CardStyle}" Margin="0,10,0,20">
 
-        </VerticalStackLayout>
-    </ScrollView>
+                    <VerticalStackLayout Spacing="16">
+
+                        <!-- Nome Completo -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="NOME COMPLETO" 
+                                   FontSize="11" FontAttributes="Bold" 
+                                   TextColor="#BB86FC"/>
+                            <Frame Style="{StaticResource InputFrame}" HeightRequest="50">
+                                <Entry Text="{Binding Nome}"
+                                       Placeholder="Digite seu nome completo"
+                                       PlaceholderColor="#6B6B6B"
+                                       TextColor="#E0E0E0"
+                                       FontSize="14"
+                                       BackgroundColor="Transparent"
+                                       Margin="15,0"/>
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <!-- CPF -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="CPF" 
+                                   FontSize="11" FontAttributes="Bold" 
+                                   TextColor="#BB86FC"/>
+                            <Frame Style="{StaticResource InputFrame}" HeightRequest="50">
+                                <Entry Text="{Binding Cpf}"
+                                       Placeholder="000.000.000-00"
+                                       PlaceholderColor="#6B6B6B"
+                                       TextColor="#E0E0E0"
+                                       FontSize="14"
+                                       BackgroundColor="Transparent"
+                                       Keyboard="Numeric"
+                                       Margin="15,0"/>
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <!-- Cidade e UF (Grid 2 colunas) -->
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="12">
+
+                            <VerticalStackLayout Grid.Column="0" Spacing="6">
+                                <Label Text="CIDADE" 
+                                       FontSize="11" FontAttributes="Bold" 
+                                       TextColor="#BB86FC"/>
+                                <Frame Style="{StaticResource InputFrame}" HeightRequest="50">
+                                    <Entry Text="{Binding Cidade}"
+                                           Placeholder="Sua cidade"
+                                           PlaceholderColor="#6B6B6B"
+                                           TextColor="#E0E0E0"
+                                           FontSize="14"
+                                           BackgroundColor="Transparent"
+                                           Margin="15,0"/>
+                                </Frame>
+                            </VerticalStackLayout>
+
+                            <VerticalStackLayout Grid.Column="1" Spacing="6">
+                                <Label Text="UF" 
+                                       FontSize="11" FontAttributes="Bold" 
+                                       TextColor="#BB86FC"/>
+                                <Frame Style="{StaticResource InputFrame}" HeightRequest="50" WidthRequest="70">
+                                    <Entry Text="{Binding Uf}"
+                                           Placeholder="SP"
+                                           PlaceholderColor="#6B6B6B"
+                                           TextColor="#E0E0E0"
+                                           FontSize="14"
+                                           BackgroundColor="Transparent"
+                                           MaxLength="2"
+                                           Margin="15,0"/>
+                                </Frame>
+                            </VerticalStackLayout>
+
+                        </Grid>
+
+                        <!-- E-mail -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="E-MAIL" 
+                                   FontSize="11" FontAttributes="Bold" 
+                                   TextColor="#BB86FC"/>
+                            <Frame Style="{StaticResource InputFrame}" HeightRequest="50">
+                                <Entry Text="{Binding Email}"
+                                       Placeholder="seu@email.com"
+                                       PlaceholderColor="#6B6B6B"
+                                       TextColor="#E0E0E0"
+                                       FontSize="14"
+                                       BackgroundColor="Transparent"
+                                       Keyboard="Email"
+                                       Margin="15,0"/>
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <!-- Senha -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="SENHA" 
+                                   FontSize="11" FontAttributes="Bold" 
+                                   TextColor="#BB86FC"/>
+                            <Frame Style="{StaticResource InputFrame}" HeightRequest="50">
+                                <Entry Text="{Binding Senha}"
+                                       Placeholder="********"
+                                       PlaceholderColor="#6B6B6B"
+                                       TextColor="#E0E0E0"
+                                       FontSize="14"
+                                       BackgroundColor="Transparent"
+                                       IsPassword="True"
+                                       Margin="15,0"/>
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <!-- Tipo de Usuário -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="TIPO DE USUÁRIO" 
+                                   FontSize="11" FontAttributes="Bold" 
+                                   TextColor="#BB86FC"/>
+                            <Frame Style="{StaticResource InputFrame}" HeightRequest="50">
+                                <Picker Title="Selecione o perfil"
+                                        TitleColor="#6B6B6B"
+                                        TextColor="#E0E0E0"
+                                        BackgroundColor="Transparent"
+                                        SelectedItem="{Binding TipoSelecionado}"
+                                        VerticalOptions="Center"
+                                        Margin="10,0">
+                                    <Picker.Items>
+                                        <x:String>Aluno</x:String>
+                                        <x:String>Professor</x:String>
+                                    </Picker.Items>
+                                </Picker>
+                            </Frame>
+                        </VerticalStackLayout>
+
+                        <!-- Linha Divisória -->
+                        <BoxView HeightRequest="1" BackgroundColor="#2A2A2A" Margin="0,10,0,10"/>
+
+                        <!-- Botão Registrar -->
+                        <Button Text="REGISTRAR →"
+                                Background="{StaticResource PrimaryGradient}"
+                                TextColor="#121212"
+                                CornerRadius="25"
+                                FontSize="15"
+                                FontAttributes="Bold"
+                                HeightRequest="50"
+                                Margin="0,5,0,0"
+                                Command="{Binding RegistrarCommand}"
+                                Clicked="OnRegistrarClicked"/>
+
+                        <!-- Link para Login -->
+                        <HorizontalStackLayout  
+                            HorizontalOptions="Center" 
+                            Spacing="8">
+                            <Label Text="Já possui conta?" FontSize="13" TextColor="#9E9E9E"/>
+                            <Label Text="Faça login" 
+                                   FontSize="13" 
+                                   FontAttributes="Bold" 
+                                   TextColor="#BB86FC">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding DirecionarLoginCommand}"/>
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </HorizontalStackLayout>
+
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Versão -->
+                <Label Text="v1.0" 
+                       FontSize="10" 
+                       TextColor="#4A4A4A"
+                       HorizontalOptions="Center"
+                       Margin="0,10,0,20"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

@@ -3,137 +3,196 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Estudex0._1a.View.ProfessorViews.InserirAtividadeView"
              Title="Criar Nova Atividade"
-             BackgroundColor="#1a1a2e">
-    <ScrollView>
-        <VerticalStackLayout Spacing="0" Padding="20">
+             BackgroundColor="#121212">
 
-            <!-- Header -->
-            <Frame BackgroundColor="#2d2b55" CornerRadius="16" Padding="20" Margin="0,0,0,20" BorderColor="#7c3aed">
-                <VerticalStackLayout Spacing="6">
-                    <Label Text="+ Criar Nova Atividade"
-                           FontSize="24"
-                           FontAttributes="Bold"
-                           TextColor="#c084fc" />
-                    <Label Text="Preencha os dados abaixo para criar uma atividade para seus alunos"
-                           FontSize="13"
-                           TextColor="#a0a0c0" />
-                </VerticalStackLayout>
-            </Frame>
+    <ContentPage.Resources>
+        <LinearGradientBrush x:Key="PrimaryGradient" EndPoint="1,0">
+            <GradientStop Color="#BB86FC" Offset="0" />
+            <GradientStop Color="#a21fa2" Offset="1" />
+        </LinearGradientBrush>
 
-            <!-- Card Informações -->
-            <Frame BackgroundColor="#2d2b55" CornerRadius="16" Padding="20" Margin="0,0,0,16" BorderColor="#3d3b6e">
-                <VerticalStackLayout Spacing="14">
+        <Style TargetType="Frame" x:Key="CardStyle">
+            <Setter Property="BackgroundColor" Value="#1E1E1E"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="HasShadow" Value="True"/>
+        </Style>
 
-                    <Label Text="ℹ Informações Básicas"
-                           FontSize="16"
-                           FontAttributes="Bold"
-                           TextColor="#c084fc" />
+        <Style TargetType="Frame" x:Key="InputFrame">
+            <Setter Property="BackgroundColor" Value="#2A2A2A"/>
+            <Setter Property="CornerRadius" Value="12"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="HasShadow" Value="False"/>
+        </Style>
+    </ContentPage.Resources>
 
-                    <!-- Título -->
-                    <VerticalStackLayout Spacing="6">
-                        <Label Text="Título" FontSize="13" TextColor="#a0a0c0" />
-                        <Frame BackgroundColor="#1a1a2e" CornerRadius="10" Padding="0" BorderColor="#7c3aed" HeightRequest="48">
-                            <Entry Text="{Binding Titulo}"
-                                   FontSize="15"
-                                   TextColor="White"
-                                   PlaceholderColor="#6060a0"
-                                   Placeholder="Digite o título da atividade"
-                                   BackgroundColor="Transparent"
-                                   Margin="12,0" />
-                        </Frame>
+    <Grid>
+        <Grid BackgroundColor="#121212"/>
+
+        <!-- Círculos Decorativos -->
+        <Ellipse Fill="#20BB86FC" WidthRequest="300" HeightRequest="300"
+                 HorizontalOptions="Start" VerticalOptions="Start"
+                 Margin="-150,-150,0,0"/>
+        <Ellipse Fill="#20a21fa2" WidthRequest="250" HeightRequest="250"
+                 HorizontalOptions="End" VerticalOptions="End"
+                 Margin="0,0,-100,-100"/>
+
+        <ScrollView>
+            <VerticalStackLayout Spacing="20" Padding="20">
+
+                <!-- Header -->
+                <Frame Style="{StaticResource CardStyle}">
+                    <VerticalStackLayout Spacing="8">
+                        <HorizontalStackLayout Spacing="10">
+                            <Label Text="+" FontSize="28" TextColor="#BB86FC"/>
+                            <Label Text="CRIAR NOVA ATIVIDADE"
+                                   FontSize="20" FontAttributes="Bold" 
+                                   TextColor="#a21fa2"/>
+                        </HorizontalStackLayout>
+                        <Label Text="Preencha os dados abaixo para criar uma atividade para seus alunos"
+                               FontSize="12" TextColor="#9E9E9E"/>
                     </VerticalStackLayout>
+                </Frame>
 
-                    <!-- Pontuação -->
-                    <VerticalStackLayout Spacing="6">
-                        <Label Text="Pontuação Máxima" FontSize="13" TextColor="#a0a0c0" />
-                        <Frame BackgroundColor="#1a1a2e" CornerRadius="10" Padding="0" BorderColor="#7c3aed" HeightRequest="48">
-                            <Entry Text="{Binding PontuacaoMaxima}"
-                                   FontSize="15"
-                                   TextColor="White"
-                                   PlaceholderColor="#6060a0"
-                                   Placeholder="Ex: 10"
-                                   Keyboard="Numeric"
-                                   BackgroundColor="Transparent"
-                                   Margin="12,0" />
-                        </Frame>
-                    </VerticalStackLayout>
+                <!-- Card Informações Básicas -->
+                <Frame Style="{StaticResource CardStyle}">
+                    <VerticalStackLayout Spacing="16">
 
-                    <!-- Orientador -->
-                    <VerticalStackLayout Spacing="6">
-                        <Label Text="Orientador" FontSize="13" TextColor="#a0a0c0" />
-                        <Picker Title="Selecione o orientador"
-                                TitleColor="#6060a0"
-                                TextColor="White"
-                                BackgroundColor="#1a1a2e"
-                                ItemsSource="{Binding ListaOrientadores}"
-                                ItemDisplayBinding="{Binding Nome}"
-                                SelectedItem="{Binding OrientadorSelecionado}"
-                                HeightRequest="48" />
-                    </VerticalStackLayout>
+                        <!-- Título da Seção -->
+                        <HorizontalStackLayout Spacing="8">
+                            <Label Text="ℹ️" FontSize="16"/>
+                            <Label Text="INFORMAÇÕES BÁSICAS"
+                                   FontSize="14" FontAttributes="Bold" 
+                                   TextColor="#BB86FC"/>
+                        </HorizontalStackLayout>
 
-                    <!-- Grid 2 colunas: Dificuldade + Disciplina -->
-                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
-
-                        <!-- Nível de Dificuldade -->
-                        <VerticalStackLayout Spacing="6" Grid.Column="0">
-                            <Label Text="Dificuldade" FontSize="13" TextColor="#a0a0c0" />
-                            <Picker Title="Selecione"
-                                    TitleColor="#6060a0"
-                                    TextColor="White"
-                                    BackgroundColor="#1a1a2e"
-                                    ItemsSource="{Binding ListaNiveisDificuldade}"
-                                    ItemDisplayBinding="{Binding Nome}"
-                                    SelectedItem="{Binding NivelDificuldadeSelecionado}"
-                                    HeightRequest="48" />
+                        <!-- Título -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="TÍTULO" FontSize="11" FontAttributes="Bold" TextColor="#9E9E9E"/>
+                            <Frame Style="{StaticResource InputFrame}" HeightRequest="50">
+                                <Entry Text="{Binding Titulo}"
+                                       FontSize="14"
+                                       TextColor="#E0E0E0"
+                                       PlaceholderColor="#6B6B6B"
+                                       Placeholder="Digite o título da atividade"
+                                       BackgroundColor="Transparent"
+                                       Margin="15,0"/>
+                            </Frame>
                         </VerticalStackLayout>
 
-                        <!-- Disciplina -->
-                        <VerticalStackLayout Spacing="6" Grid.Column="1">
-                            <Label Text="Disciplina" FontSize="13" TextColor="#a0a0c0" />
-                            <Picker Title="Selecione"
-                                    TitleColor="#6060a0"
-                                    TextColor="White"
-                                    BackgroundColor="#1a1a2e"
-                                    ItemsSource="{Binding ListaDisciplinas}"
-                                    ItemDisplayBinding="{Binding Nome}"
-                                    SelectedItem="{Binding DisciplinaSelecionada}"
-                                    HeightRequest="48" />
+                        <!-- Pontuação Máxima -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="⭐ PONTUAÇÃO MÁXIMA" FontSize="11" FontAttributes="Bold" TextColor="#9E9E9E"/>
+                            <Frame Style="{StaticResource InputFrame}" HeightRequest="50">
+                                <Entry Text="{Binding PontuacaoMaxima}"
+                                       FontSize="14"
+                                       TextColor="#E0E0E0"
+                                       PlaceholderColor="#6B6B6B"
+                                       Placeholder="Ex: 100"
+                                       Keyboard="Numeric"
+                                       BackgroundColor="Transparent"
+                                       Margin="15,0"/>
+                            </Frame>
                         </VerticalStackLayout>
 
-                    </Grid>
+                        <!-- Orientador -->
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="👨‍🏫 ORIENTADOR" FontSize="11" FontAttributes="Bold" TextColor="#9E9E9E"/>
+                            <Frame Style="{StaticResource InputFrame}" HeightRequest="50">
+                                <Picker Title="Selecione o orientador"
+                                        TitleColor="#6B6B6B"
+                                        TextColor="#E0E0E0"
+                                        BackgroundColor="Transparent"
+                                        ItemsSource="{Binding ListaOrientadores}"
+                                        ItemDisplayBinding="{Binding Nome}"
+                                        SelectedItem="{Binding OrientadorSelecionado}"
+                                        VerticalOptions="Center"
+                                        Margin="10,0"/>
+                            </Frame>
+                        </VerticalStackLayout>
 
-                </VerticalStackLayout>
-            </Frame>
+                        <!-- Grid 2 colunas: Dificuldade + Disciplina -->
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
 
-            <!-- Botões -->
-            <HorizontalStackLayout Spacing="12" HorizontalOptions="End" Margin="0,4,0,20">
-                <Button Text="📎 Material de Apoio"
-                        BackgroundColor="Transparent"
-                        BorderColor="#3d3b6e"
-                        BorderWidth="1"
-                        TextColor="#6060a0"
-                        CornerRadius="10"
-                        Padding="16,12"
-                        FontSize="13"
-                        Command="{Binding MaterialApoioCommand}" />
-                <Button Text="Cancelar"
-                        BackgroundColor="Transparent"
-                        BorderColor="#7c3aed"
-                        BorderWidth="1"
-                        TextColor="#c084fc"
-                        CornerRadius="10"
-                        Padding="20,12"
-                        FontSize="14" />
-                <Button Text="Adicionar Questões ▶"
-                        BackgroundColor="#7c3aed"
-                        TextColor="White"
-                        CornerRadius="10"
-                        Padding="20,12"
-                        FontSize="14"
-                        FontAttributes="Bold"
-                        Command="{Binding ProximoCommand}" />
-            </HorizontalStackLayout>
+                            <!-- Nível de Dificuldade -->
+                            <VerticalStackLayout Spacing="6" Grid.Column="0">
+                                <Label Text="📊 DIFICULDADE" FontSize="11" FontAttributes="Bold" TextColor="#9E9E9E"/>
+                                <Frame Style="{StaticResource InputFrame}" HeightRequest="50">
+                                    <Picker Title="Selecione"
+                                            TitleColor="#6B6B6B"
+                                            TextColor="#E0E0E0"
+                                            BackgroundColor="Transparent"
+                                            ItemsSource="{Binding ListaNiveisDificuldade}"
+                                            ItemDisplayBinding="{Binding Nome}"
+                                            SelectedItem="{Binding NivelDificuldadeSelecionado}"
+                                            VerticalOptions="Center"
+                                            Margin="10,0"/>
+                                </Frame>
+                            </VerticalStackLayout>
 
-        </VerticalStackLayout>
-    </ScrollView>
+                            <!-- Disciplina -->
+                            <VerticalStackLayout Spacing="6" Grid.Column="1">
+                                <Label Text="📚 DISCIPLINA" FontSize="11" FontAttributes="Bold" TextColor="#9E9E9E"/>
+                                <Frame Style="{StaticResource InputFrame}" HeightRequest="50">
+                                    <Picker Title="Selecione"
+                                            TitleColor="#6B6B6B"
+                                            TextColor="#E0E0E0"
+                                            BackgroundColor="Transparent"
+                                            ItemsSource="{Binding ListaDisciplinas}"
+                                            ItemDisplayBinding="{Binding Nome}"
+                                            SelectedItem="{Binding DisciplinaSelecionada}"
+                                            VerticalOptions="Center"
+                                            Margin="10,0"/>
+                                </Frame>
+                            </VerticalStackLayout>
+
+                        </Grid>
+
+                    </VerticalStackLayout>
+                </Frame>
+
+                <!-- Botões de Ação -->
+                <HorizontalStackLayout Spacing="12" HorizontalOptions="End">
+
+                    <Button Text="📎 MATERIAL DE APOIO"
+                            BackgroundColor="#2A2A2A"
+                            BorderColor="#BB86FC"
+                            BorderWidth="1"
+                            TextColor="#BB86FC"
+                            CornerRadius="12"
+                            Padding="16,10"
+                            FontSize="11"
+                            FontAttributes="Bold"
+                            Command="{Binding MaterialApoioCommand}"/>
+
+                    <Button Text="CANCELAR"
+                            BackgroundColor="#2A2A2A"
+                            BorderColor="#FF3D00"
+                            BorderWidth="1"
+                            TextColor="#FF3D00"
+                            CornerRadius="12"
+                            Padding="20,10"
+                            FontSize="11"
+                            FontAttributes="Bold"/>
+
+                    <Button Text="ADICIONAR QUESTÕES ▶"
+                            Background="{StaticResource PrimaryGradient}"
+                            TextColor="#121212"
+                            CornerRadius="12"
+                            Padding="20,10"
+                            FontSize="11"
+                            FontAttributes="Bold"
+                            Command="{Binding ProximoCommand}"/>
+
+                </HorizontalStackLayout>
+
+                <!-- Loading -->
+                <ActivityIndicator IsVisible="{Binding IsBusy}"
+                                   IsRunning="{Binding IsBusy}"
+                                   Color="#BB86FC"
+                                   HeightRequest="40"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>
