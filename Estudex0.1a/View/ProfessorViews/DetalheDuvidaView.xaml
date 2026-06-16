@@ -75,8 +75,9 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- Campo de resposta -->
-        <Grid Grid.Row="3" RowDefinitions="Auto,Auto" RowSpacing="10">
+        <!-- Campo de resposta — esconde se já respondida -->
+        <Grid Grid.Row="3" RowDefinitions="Auto,Auto" RowSpacing="10"
+              IsVisible="{Binding NaoRespondida}">
             <Frame Grid.Row="0" BackgroundColor="#2d2b55" CornerRadius="12"
                    Padding="0" BorderColor="#7c3aed">
                 <Editor Text="{Binding NovaResposta}"
@@ -97,6 +98,15 @@
                     HeightRequest="52"
                     Command="{Binding EnviarRespostaCommand}" />
         </Grid>
+
+        <!-- Aviso se já respondida -->
+        <Frame Grid.Row="3" BackgroundColor="#1a3a1a" CornerRadius="12"
+               Padding="16" BorderColor="#4ade80"
+               IsVisible="{Binding JaRespondida}">
+            <Label Text="✅ Esta dúvida já foi respondida."
+                   FontSize="14" TextColor="#4ade80"
+                   HorizontalOptions="Center" />
+        </Frame>
 
     </Grid>
 </ContentPage>

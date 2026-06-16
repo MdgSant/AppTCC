@@ -18,11 +18,6 @@ public partial class DuvidaView : ContentPage
             await vm.InicializarAsync();
     }
 
-    private async void OnNovaDuvidaClicked(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync("InserirDuvidaView");
-    }
-
     private async void OnBuscarPorIdClicked(object sender, EventArgs e)
     {
         var vm = BindingContext as ListagemDuvidaViewModel;

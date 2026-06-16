@@ -27,6 +27,20 @@ public class DetalheDuvidaProfessorViewModel : BaseViewModel
         set { novaResposta = value; OnPropertyChanged(); }
     }
 
+    public bool NaoRespondida => !JaRespondida;
+
+    // E atualize o setter de JaRespondida para notificar também NaoRespondida:
+    private bool jaRespondida;
+    public bool JaRespondida
+    {
+        get => jaRespondida;
+        set
+        {
+            jaRespondida = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(NaoRespondida)); // ✅ notifica os dois
+        }
+    }
     public ObservableCollection<RespostaDuvida> Respostas { get; set; } = new();
 
     public ICommand EnviarRespostaCommand { get; set; }
@@ -52,7 +66,9 @@ public class DetalheDuvidaProfessorViewModel : BaseViewModel
         _dService = new ProfessorDuvidasService(token);
         _rService = new AlunoDuvidaService(token);
 
-        EnviarRespostaCommand = new Command(async () => await EnviarResposta());
+        EnviarRespostaCommand = new Command(
+            async () => await EnviarResposta(),
+            () => !JaRespondida); // ✅ desabilita se já respondida
     }
 
     private async Task CarregarAsync(int idDuvida)
@@ -60,9 +76,14 @@ public class DetalheDuvidaProfessorViewModel : BaseViewModel
         try
         {
             Duvida = await _rService.GetDuvidaAsync(idDuvida);
+
             var respostas = await _rService.GetRespostasDuvidaAsync(idDuvida);
             Respostas.Clear();
             foreach (var r in respostas) Respostas.Add(r);
+
+            // ✅ Verifica se já foi respondida
+            JaRespondida = await _dService.VerificarDuvidaRespondidaAsync(idDuvida);
+            ((Command)EnviarRespostaCommand).ChangeCanExecute();
         }
         catch (Exception ex)
         {
@@ -73,6 +94,13 @@ public class DetalheDuvidaProfessorViewModel : BaseViewModel
 
     private async Task EnviarResposta()
     {
+        if (JaRespondida)
+        {
+            await Application.Current.MainPage
+                .DisplayAlert("Aviso", "Esta dúvida já foi respondida!", "Ok");
+            return;
+        }
+
         if (string.IsNullOrWhiteSpace(NovaResposta))
         {
             await Application.Current.MainPage
@@ -88,16 +116,26 @@ public class DetalheDuvidaProfessorViewModel : BaseViewModel
             {
                 ConteudoResposta = NovaResposta,
                 Momento = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss"),
-                IdUtilizador = idProf,
+                Utilizador = new Utilizador { IdUtilizador = idProf },
                 Duvida = new Duvida { IdDuvida = _idDuvida }
             };
 
-            await _dService.PostRespostaAsync(resposta);
+            bool sucesso = await _dService.PostRespostaDuvidaAsync(resposta);
 
-            NovaResposta = string.Empty;
-            await CarregarAsync(_idDuvida); // recarrega as respostas
-            await Application.Current.MainPage
-                .DisplayAlert("Sucesso", "Resposta enviada!", "Ok");
+            if (sucesso)
+            {
+                NovaResposta = string.Empty;
+                JaRespondida = true;
+                ((Command)EnviarRespostaCommand).ChangeCanExecute();
+                await CarregarAsync(_idDuvida);
+                await Application.Current.MainPage
+                    .DisplayAlert("Sucesso", "Resposta enviada!", "Ok");
+            }
+            else
+            {
+                await Application.Current.MainPage
+                    .DisplayAlert("Erro", "Não foi possível enviar a resposta.", "Ok");
+            }
         }
         catch (Exception ex)
         {

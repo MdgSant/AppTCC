@@ -23,7 +23,7 @@
                 </Frame>
                 <VerticalStackLayout Spacing="2" VerticalOptions="Center">
                     <Label Text="Total de Atividades" FontSize="13" TextColor="#a0a0c0" />
-                    <Label Text="{Binding Atividades.Count}" FontSize="28"
+                    <Label Text="{Binding TotalAtividades}" FontSize="28"
                            FontAttributes="Bold" TextColor="#c084fc" />
                 </VerticalStackLayout>
             </HorizontalStackLayout>
@@ -37,10 +37,11 @@
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" Span="1" VerticalItemSpacing="12" />
             </CollectionView.ItemsLayout>
+
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Frame BackgroundColor="#2d2b55" CornerRadius="14"
-                           Padding="16" BorderColor="#3d3b6e" Margin="0,0,0,0">
+                           Padding="16" BorderColor="#3d3b6e">
                         <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="8">
 
                             <!-- Título + Badge Dificuldade -->
@@ -54,38 +55,31 @@
                                        BackgroundColor="#1a4a1a">
                                     <Frame.Triggers>
                                         <DataTrigger TargetType="Frame"
-                                            Binding="{Binding NivelDificuldade.Nome}"
-                                            Value="Fácil">
+                                            Binding="{Binding NivelDificuldade.Nome}" Value="Fácil">
                                             <Setter Property="BackgroundColor" Value="#1a3a1a" />
                                         </DataTrigger>
                                         <DataTrigger TargetType="Frame"
-                                            Binding="{Binding NivelDificuldade.Nome}"
-                                            Value="Médio">
+                                            Binding="{Binding NivelDificuldade.Nome}" Value="Médio">
                                             <Setter Property="BackgroundColor" Value="#3a2a0a" />
                                         </DataTrigger>
                                         <DataTrigger TargetType="Frame"
-                                            Binding="{Binding NivelDificuldade.Nome}"
-                                            Value="Difícil">
+                                            Binding="{Binding NivelDificuldade.Nome}" Value="Difícil">
                                             <Setter Property="BackgroundColor" Value="#3a0a0a" />
                                         </DataTrigger>
                                     </Frame.Triggers>
-
                                     <Label Text="{Binding NivelDificuldade.Nome}" FontSize="12"
                                            TextColor="#4ade80">
                                         <Label.Triggers>
                                             <DataTrigger TargetType="Label"
-                                                Binding="{Binding NivelDificuldade.Nome}"
-                                                Value="Fácil">
+                                                Binding="{Binding NivelDificuldade.Nome}" Value="Fácil">
                                                 <Setter Property="TextColor" Value="#4ade80" />
                                             </DataTrigger>
                                             <DataTrigger TargetType="Label"
-                                                Binding="{Binding NivelDificuldade.Nome}"
-                                                Value="Médio">
+                                                Binding="{Binding NivelDificuldade.Nome}" Value="Médio">
                                                 <Setter Property="TextColor" Value="#f59e0b" />
                                             </DataTrigger>
                                             <DataTrigger TargetType="Label"
-                                                Binding="{Binding NivelDificuldade.Nome}"
-                                                Value="Difícil">
+                                                Binding="{Binding NivelDificuldade.Nome}" Value="Difícil">
                                                 <Setter Property="TextColor" Value="#f87171" />
                                             </DataTrigger>
                                         </Label.Triggers>
@@ -93,8 +87,7 @@
                                 </Frame>
                             </Grid>
 
-                            <BoxView Grid.Row="1" HeightRequest="0.5"
-                                     BackgroundColor="#3d3b6e" />
+                            <BoxView Grid.Row="1" HeightRequest="0.5" BackgroundColor="#3d3b6e" />
 
                             <!-- Pontos + Data -->
                             <Grid Grid.Row="2" ColumnDefinitions="*,Auto">
@@ -110,9 +103,30 @@
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
+
+            <!-- ✅ Footer com paginação -->
+            <CollectionView.Footer>
+                <VerticalStackLayout Padding="0,16">
+                    <Button Text="Carregar mais"
+                            BackgroundColor="Transparent"
+                            BorderColor="#3d3b6e"
+                            BorderWidth="1"
+                            TextColor="#c084fc"
+                            CornerRadius="10"
+                            FontSize="14"
+                            HeightRequest="44"
+                            Command="{Binding CarregarMaisCommand}"
+                            IsVisible="{Binding TemMaisPaginas}" />
+                    <ActivityIndicator Color="#7c3aed"
+                                       IsRunning="{Binding CarregandoMais}"
+                                       IsVisible="{Binding CarregandoMais}"
+                                       Margin="0,8,0,0" />
+                </VerticalStackLayout>
+            </CollectionView.Footer>
+
         </CollectionView>
 
-        <!-- Botão -->
+        <!-- Botão Nova Atividade -->
         <Button Grid.Row="3"
                 Text="+ Nova Atividade"
                 BackgroundColor="#7c3aed"
