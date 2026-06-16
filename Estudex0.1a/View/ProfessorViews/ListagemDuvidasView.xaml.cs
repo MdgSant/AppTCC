@@ -1,5 +1,5 @@
-using Estudex0._1a.Models;
 using Estudex0._1a.ViewModels.ProfessorViewModel;
+using Estudex0._1a.Models;
 
 namespace Estudex0._1a.View.ProfessorViews;
 
@@ -10,17 +10,13 @@ public partial class DuvidaView : ContentPage
         InitializeComponent();
         BindingContext = new ListagemDuvidaViewModel();
     }
+
     protected override async void OnAppearing()
     {
         base.OnAppearing();
         var vm = BindingContext as ListagemDuvidaViewModel;
         if (vm != null)
             await vm.InicializarAsync();
-    }
-
-    private async void OnNovaDuvidaClicked(object sender, EventArgs e)
-    {
-        await Shell.Current.GoToAsync("InserirDuvidaView");
     }
 
     private async void OnBuscarPorIdClicked(object sender, EventArgs e)
@@ -38,13 +34,18 @@ public partial class DuvidaView : ContentPage
         }
     }
 
-    private async void OnDuvidaSelecionada(object sender, SelectionChangedEventArgs e)
+    // ?? MÉTODO PARA CLICAR NO CARD ??
+    private async void OnDuvidaTapped(object sender, TappedEventArgs e)
     {
-        if (e.CurrentSelection.FirstOrDefault() is Duvida duvida)
+        var vm = BindingContext as ListagemDuvidaViewModel;
+        if (vm == null) return;
+
+        var frame = sender as Frame;
+        var duvida = frame?.BindingContext as Duvida;
+
+        if (duvida != null)
         {
-            ((CollectionView)sender).SelectedItem = null;
-            await Shell.Current.GoToAsync(
-                $"DetalheDuvidaProfessorView?idDuvida={duvida.IdDuvida}");
+            await vm.ObterDuvidaPorId(duvida.IdDuvida);
         }
     }
 }

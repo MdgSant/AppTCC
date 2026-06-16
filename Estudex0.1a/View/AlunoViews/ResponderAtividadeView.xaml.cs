@@ -22,4 +22,9 @@ public partial class ListagemAtividadeView : ContentPage
         InitializeComponent();
         BindingContext = new ResponderAtividadeViewModel();
     }
+
+    private void InitializeComponent()
+    {
+        throw new NotImplementedException();
+    }
 }

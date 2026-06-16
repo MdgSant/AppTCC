@@ -3,100 +3,181 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Estudex0._1a.View.ProfessorViews.DetalhesAtividadeView"
              Title="Detalhes da Atividade"
-             BackgroundColor="#1a1a2e">
-    <ScrollView>
-        <VerticalStackLayout Spacing="0" Padding="20">
+             BackgroundColor="#121212">
 
-            <!-- Header -->
-            <Frame BackgroundColor="#2d2b55" CornerRadius="16" Padding="20"
-                   Margin="0,0,0,16" BorderColor="#7c3aed">
-                <VerticalStackLayout Spacing="6">
-                    <Label Text="{Binding Atividade.Titulo}"
-                           FontSize="22" FontAttributes="Bold" TextColor="#c084fc" />
-                    <HorizontalStackLayout Spacing="10">
-                        <Label Text="{Binding Atividade.NivelDificuldade.Nome}"
-                               FontSize="13" TextColor="#a0a0c0" />
-                        <Label Text="•" TextColor="#3d3b6e" />
-                        <Label Text="{Binding Atividade.PontuacaoMaxima, StringFormat='⭐ {0} pts'}"
-                               FontSize="13" TextColor="#a0a0c0" />
-                        <Label Text="•" TextColor="#3d3b6e" />
-                        <Label Text="{Binding Atividade.DataCriacao, StringFormat='📅 {0:dd/MM/yyyy}'}"
-                               FontSize="13" TextColor="#a0a0c0" />
-                    </HorizontalStackLayout>
-                </VerticalStackLayout>
-            </Frame>
+    <ContentPage.Resources>
+        <LinearGradientBrush x:Key="PrimaryGradient" EndPoint="1,0">
+            <GradientStop Color="#BB86FC" Offset="0" />
+            <GradientStop Color="#a21fa2" Offset="1" />
+        </LinearGradientBrush>
 
-            <!-- Lista de Perguntas -->
-            <VerticalStackLayout BindableLayout.ItemsSource="{Binding Atividade.Perguntas}"
-                                 Spacing="12">
-                <BindableLayout.EmptyView>
-                    <Label Text="Nenhuma pergunta cadastrada."
-                           TextColor="#a0a0c0" HorizontalOptions="Center" />
-                </BindableLayout.EmptyView>
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
-                        <Frame BackgroundColor="#2d2b55" CornerRadius="14"
-                               Padding="16" BorderColor="#3d3b6e">
-                            <VerticalStackLayout Spacing="12">
+        <Style TargetType="Frame" x:Key="CardStyle">
+            <Setter Property="BackgroundColor" Value="#1E1E1E"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="HasShadow" Value="True"/>
+        </Style>
 
-                                <Label Text="{Binding Enunciado}"
-                                       FontSize="15" FontAttributes="Bold"
-                                       TextColor="#e0e0ff" />
+        <Style TargetType="Frame" x:Key="PerguntaCard">
+            <Setter Property="BackgroundColor" Value="#1E1E1E"/>
+            <Setter Property="CornerRadius" Value="16"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="0,0,0,12"/>
+            <Setter Property="HasShadow" Value="True"/>
+        </Style>
 
-                                <BoxView HeightRequest="0.5" BackgroundColor="#3d3b6e" />
+        <Style TargetType="Frame" x:Key="OpcaoFrame">
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="HasShadow" Value="False"/>
+        </Style>
+    </ContentPage.Resources>
 
-                                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Opcoes}"
-                                                     Spacing="8">
-                                    <BindableLayout.ItemTemplate>
-                                        <DataTemplate>
-                                            <Frame Padding="12,8" CornerRadius="10"
-                                                   BorderColor="#3d3b6e"
-                                                   BackgroundColor="#1a1a2e">
+    <Grid>
+        <Grid BackgroundColor="#121212"/>
 
-                                                <Frame.Triggers>
-                                                    <DataTrigger TargetType="Frame"
-                                                                 Binding="{Binding Correta}"
-                                                                 Value="True">
-                                                        <Setter Property="BorderColor" Value="#4ade80" />
-                                                        <Setter Property="BackgroundColor" Value="#0a2a0a" />
-                                                    </DataTrigger>
-                                                </Frame.Triggers>
+        <Ellipse Fill="#20BB86FC" WidthRequest="300" HeightRequest="300"
+                 HorizontalOptions="Start" VerticalOptions="Start"
+                 Margin="-150,-150,0,0"/>
+        <Ellipse Fill="#20a21fa2" WidthRequest="250" HeightRequest="250"
+                 HorizontalOptions="End" VerticalOptions="End"
+                 Margin="0,0,-100,-100"/>
 
-                                                <HorizontalStackLayout Spacing="10">
-                                                    <Label Text="✓" FontSize="14" TextColor="#4ade80">
-                                                        <Label.Triggers>
-                                                            <DataTrigger TargetType="Label"
-                                                                         Binding="{Binding Correta}"
-                                                                         Value="False">
-                                                                <Setter Property="Text" Value="○" />
-                                                                <Setter Property="TextColor" Value="#6060a0" />
-                                                            </DataTrigger>
-                                                        </Label.Triggers>
-                                                    </Label>
-                                                    <Label Text="{Binding Descricao}"
-                                                           FontSize="14" TextColor="#e0e0ff"
-                                                           VerticalOptions="Center" />
-                                                </HorizontalStackLayout>
+        <ScrollView>
+            <VerticalStackLayout Spacing="20" Padding="20">
 
-                                            </Frame>
-                                        </DataTemplate>
-                                    </BindableLayout.ItemTemplate>
-                                </VerticalStackLayout>
+                <Frame Style="{StaticResource CardStyle}">
+                    <VerticalStackLayout Spacing="10">
+                        <HorizontalStackLayout Spacing="10">
+                            <Label Text="📋" FontSize="24" TextColor="#BB86FC"/>
+                            <Label Text="{Binding Atividade.Titulo}"
+                                   FontSize="18" FontAttributes="Bold" TextColor="#E0E0E0"/>
+                        </HorizontalStackLayout>
 
+                        <!-- CORRIGIDO: Usando WrapLayout manual com Grid -->
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <HorizontalStackLayout Grid.Row="0" Grid.Column="0" Spacing="5" Margin="0,0,15,5">
+                                <Label Text="⭐" FontSize="12"/>
+                                <Label Text="Nível:" FontSize="12" TextColor="#9E9E9E"/>
+                                <Label Text="{Binding Atividade.NivelDificuldade.Nome}"
+                                       FontSize="12" FontAttributes="Bold" TextColor="#a21fa2"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Grid.Row="0" Grid.Column="1" Spacing="5" Margin="0,0,15,5">
+                                <Label Text="🏆" FontSize="12"/>
+                                <Label Text="Pontuação:" FontSize="12" TextColor="#9E9E9E"/>
+                                <Label Text="{Binding Atividade.PontuacaoMaxima, StringFormat='{0} pts'}"
+                                       FontSize="12" FontAttributes="Bold" TextColor="#BB86FC"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Spacing="5">
+                                <Label Text="📅" FontSize="12"/>
+                                <Label Text="Criada em:" FontSize="12" TextColor="#9E9E9E"/>
+                                <Label Text="{Binding Atividade.DataCriacao, StringFormat='{0:dd/MM/yyyy HH:mm}'}"
+                                       FontSize="12" TextColor="#B0B0B0"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Frame>
+
+                <Label Text="📝 PERGUNTAS DA ATIVIDADE" 
+                       FontSize="13" FontAttributes="Bold"
+                       TextColor="#BB86FC" Margin="0,5,0,5"/>
+
+                <CollectionView ItemsSource="{Binding Atividade.Perguntas}">
+                    <CollectionView.EmptyView>
+                        <Frame Style="{StaticResource CardStyle}" Padding="40">
+                            <VerticalStackLayout Spacing="10" HorizontalOptions="Center">
+                                <Label Text="❓" FontSize="40" HorizontalOptions="Center"/>
+                                <Label Text="Nenhuma pergunta cadastrada." 
+                                       FontSize="13" TextColor="#9E9E9E" HorizontalOptions="Center"/>
                             </VerticalStackLayout>
                         </Frame>
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </VerticalStackLayout>
+                    </CollectionView.EmptyView>
 
-            <Button Text="👥 Ver Respostas dos Alunos"
-                BackgroundColor="#3d2b6e"
-                TextColor="#c084fc"
-                CornerRadius="12"
-                FontSize="14"
-                HeightRequest="48"
-                Margin="0,8,0,0"
-                Clicked="OnVerRespostasClicked" />
-        </VerticalStackLayout>
-    </ScrollView>
-    </ContentPage>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Style="{StaticResource PerguntaCard}">
+                                <VerticalStackLayout Spacing="15">
+
+                                    <HorizontalStackLayout Spacing="10">
+                                        <Grid WidthRequest="28" HeightRequest="28">
+                                            <Ellipse Fill="#BB86FC20"/>
+                                            <Label Text="❓" FontSize="14" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                        </Grid>
+                                        <Label Text="{Binding Enunciado}"
+                                               FontSize="15" FontAttributes="Bold"
+                                               TextColor="#E0E0E0"
+                                               LineBreakMode="WordWrap"/>
+                                    </HorizontalStackLayout>
+
+                                    <BoxView HeightRequest="1" BackgroundColor="#2A2A2A"/>
+
+                                    <VerticalStackLayout Spacing="8" Margin="20,0,0,0">
+                                        <Label Text="OPÇÕES DE RESPOSTA" 
+                                               FontSize="10" FontAttributes="Bold"
+                                               TextColor="#9E9E9E" Margin="0,0,0,5"/>
+
+                                        <StackLayout BindableLayout.ItemsSource="{Binding Opcoes}" Spacing="8">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Frame Style="{StaticResource OpcaoFrame}" BackgroundColor="#252525">
+                                                        <Frame.Triggers>
+                                                            <DataTrigger TargetType="Frame" Binding="{Binding Correta}" Value="True">
+                                                                <Setter Property="BackgroundColor" Value="#00E67610"/>
+                                                                <Setter Property="BorderColor" Value="#00E676"/>
+                                                            </DataTrigger>
+                                                        </Frame.Triggers>
+
+                                                        <HorizontalStackLayout Spacing="12">
+                                                            <Label FontSize="14" FontAttributes="Bold">
+                                                                <Label.Triggers>
+                                                                    <DataTrigger TargetType="Label" Binding="{Binding Correta}" Value="True">
+                                                                        <Setter Property="Text" Value="✓"/>
+                                                                        <Setter Property="TextColor" Value="#00E676"/>
+                                                                    </DataTrigger>
+                                                                    <DataTrigger TargetType="Label" Binding="{Binding Correta}" Value="False">
+                                                                        <Setter Property="Text" Value="○"/>
+                                                                        <Setter Property="TextColor" Value="#6B6B6B"/>
+                                                                    </DataTrigger>
+                                                                </Label.Triggers>
+                                                            </Label>
+                                                            <Label Text="{Binding Descricao}" FontSize="13" TextColor="#C0C0C0" VerticalOptions="Center" LineBreakMode="WordWrap"/>
+                                                        </HorizontalStackLayout>
+                                                    </Frame>
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </StackLayout>
+                                    </VerticalStackLayout>
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Button Text="👥 VER RESPOSTAS DOS ALUNOS"
+                        Background="{StaticResource PrimaryGradient}"
+                        TextColor="#121212"
+                        CornerRadius="12"
+                        FontSize="13"
+                        FontAttributes="Bold"
+                        HeightRequest="48"
+                        Margin="0,10,0,20"
+                        Clicked="OnVerRespostasClicked"/>
+
+                <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="#BB86FC" HeightRequest="40"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
